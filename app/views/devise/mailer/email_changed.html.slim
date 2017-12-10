@@ -1,0 +1,15 @@
+p
+  => t('devise.common.hello')
+  = @email
+  | !
+
+- if @resource.try(:unconfirmed_email?)
+  p
+    => t('devise.confirmations.we_re_contacting_you_being_changed_text')
+    = @resource.unconfirmed_email
+    | .
+- else
+  p
+    => t('devise.confirmations.we_re_contacting_you_changed_text')
+    = @resource.email
+    | .

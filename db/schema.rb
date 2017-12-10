@@ -10,10 +10,105 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171206002552) do
+ActiveRecord::Schema.define(version: 20171210191259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "courses", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "style_id", null: false
+    t.date "start_date", null: false
+    t.date "end_date"
+    t.boolean "track_payrolls", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["style_id"], name: "index_courses_on_style_id"
+  end
+
+  create_table "courses_teachers", id: false, force: :cascade do |t|
+    t.bigint "course_id", null: false
+    t.bigint "teacher_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id", "teacher_id"], name: "index_courses_teachers_on_course_id_and_teacher_id", unique: true
+    t.index ["course_id"], name: "index_courses_teachers_on_course_id"
+    t.index ["teacher_id"], name: "index_courses_teachers_on_teacher_id"
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.bigint "course_id", null: false
+    t.date "date"
+    t.index ["course_id"], name: "index_lessons_on_course_id"
+  end
+
+  create_table "lessons_students", id: false, force: :cascade do |t|
+    t.bigint "lesson_id", null: false
+    t.bigint "student_id", null: false
+    t.bigint "subscription_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_id", "student_id", "subscription_id"], name: "index_lessons_students_subscriptions"
+    t.index ["lesson_id", "student_id"], name: "index_lessons_students_on_lesson_id_and_student_id", unique: true
+    t.index ["lesson_id"], name: "index_lessons_students_on_lesson_id"
+    t.index ["student_id"], name: "index_lessons_students_on_student_id"
+    t.index ["subscription_id"], name: "index_lessons_students_on_subscription_id"
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.string "firstname", null: false
+    t.string "lastname", null: false
+    t.string "middlename"
+    t.string "phone_number"
+    t.string "email"
+    t.string "vk_profile"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "styles", force: :cascade do |t|
+    t.string "name", null: false
+    t.decimal "duration_hours", precision: 4, scale: 2, default: "1.0", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_styles_on_name", unique: true
+  end
+
+  create_table "subscription_types", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "number_of_lessons", default: 1, null: false
+    t.decimal "cost", precision: 8, scale: 2, default: "300.0", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "subscription_type_id", null: false
+    t.bigint "student_id", null: false
+    t.date "purchase_date", null: false
+    t.date "expiry_date"
+    t.decimal "price", precision: 8, scale: 2, null: false
+    t.bigint "paired_with_id"
+    t.boolean "finished", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["finished"], name: "index_subscriptions_on_finished"
+    t.index ["paired_with_id"], name: "index_subscriptions_on_paired_with_id"
+    t.index ["student_id"], name: "index_subscriptions_on_student_id"
+    t.index ["subscription_type_id"], name: "index_subscriptions_on_subscription_type_id"
+  end
+
+  create_table "teachers", force: :cascade do |t|
+    t.string "firstname", null: false
+    t.string "lastname", null: false
+    t.string "middlename"
+    t.boolean "banned", default: false, null: false
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -35,10 +130,21 @@ ActiveRecord::Schema.define(version: 20171206002552) do
     t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "admin", default: false, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "courses", "styles"
+  add_foreign_key "courses_teachers", "courses"
+  add_foreign_key "courses_teachers", "teachers"
+  add_foreign_key "lessons", "courses"
+  add_foreign_key "lessons_students", "lessons"
+  add_foreign_key "lessons_students", "students"
+  add_foreign_key "lessons_students", "subscriptions"
+  add_foreign_key "subscriptions", "students"
+  add_foreign_key "subscriptions", "subscription_types"
+  add_foreign_key "subscriptions", "subscriptions", column: "paired_with_id"
 end
