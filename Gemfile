@@ -40,6 +40,7 @@ gem 'jquery-ui-rails'
 #gem 'will_paginate'
 gem 'devise'
 gem 'simple_form'
+gem 'sidekiq'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
