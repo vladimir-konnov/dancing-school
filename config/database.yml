@@ -59,6 +59,10 @@ test:
   <<: *default
   database: dancing-school_test
 
+staging:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.
@@ -80,6 +84,4 @@ test:
 #
 production:
   <<: *default
-  database: dancing-school_production
-  username: dancing-school
-  password: <%= ENV['DANCING-SCHOOL_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
