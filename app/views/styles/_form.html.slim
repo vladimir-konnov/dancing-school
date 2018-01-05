@@ -1,0 +1,11 @@
+= simple_form_for style, url: url, method: http_method, validate: true, html: {class: 'style-form'} do |f|
+  - if style.errors.present?
+    .form-group style="width: 500px;"
+      = f.error :base, class: 'alert alert-danger'
+  = f.input :name, label: 'Имя', required: true
+  /= f.input :duration_hours, label: 'Длительность занятия', required: true
+  = f.input :calculate_payrolls, label: 'Считать зарплаты'
+  = f.association :teachers, as: :check_boxes, collection: User.ordinary_users,
+          label_method: :name, id_method: :id, include_blank: false
+
+  = f.button :submit, "#{button_name} #{t('styles.style')}", class: 'btn btn-primary'

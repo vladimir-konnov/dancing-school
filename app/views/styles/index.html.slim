@@ -1,0 +1,17 @@
+h2 = t('header.styles')
+
+= link_to t('buttons.add'), new_style_path
+
+table.styles border="1"
+  thead
+    tr
+      th Название
+      th Удалить
+  tbody
+    - @styles.each do |style|
+      tr
+        td
+          a href=edit_style_path(style) = style.name
+        td
+          - if style.lessons.size <= 0
+            = link_to "x", style_path(style), method: :delete

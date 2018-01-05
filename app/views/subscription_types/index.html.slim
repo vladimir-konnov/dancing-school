@@ -1,0 +1,17 @@
+h2 = t('header.subscription_types')
+
+= link_to t('buttons.add'), new_subscription_type_path
+
+table.subscription_types border="1"
+  thead
+    tr
+      th Название
+      th Удалить
+  tbody
+    - @subscription_types.each do |subscription_type|
+      tr
+        td
+          a href=edit_subscription_type_path(subscription_type) = subscription_type.name
+        td
+          - if subscription_type.subscriptions.size <= 0
+            = link_to "x", subscription_type_path(subscription_type), method: :delete

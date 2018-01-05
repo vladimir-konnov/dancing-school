@@ -1,7 +1,7 @@
 ru:
   header:
     lessons: Занятия
-    students: Студенты
+    students: Ученики
     subscriptions: Абонементы
     subscription_types: Типы абонементов
     styles: Направления
@@ -9,3 +9,80 @@ ru:
     payrolls: Зарплаты
     account: Аккаунт
     help: Справка
+    logout: Выход
+  buttons:
+    add: 'Добавить'
+    edit: 'Редактировать'
+    create: 'Создать'
+    save: 'Сохранить'
+    remove: 'Удалить'
+  lessons:
+    lesson: 'занятие'
+    table:
+      columns:
+        date_style: 'Дата-направление'
+        teachers: 'Преподаватели'
+        attendee: 'Присутствовало'
+        profit: 'Прибыль'
+  students:
+    student: 'ученик'
+    studenta: 'ученика'
+    studentam: 'ученикам'
+    table:
+      columns:
+        name: 'Ученики'
+  styles:
+    style: 'направление'
+  subscriptions:
+    subscription: 'абонемент'
+  subscription_types:
+    subscription_type: 'тип абонемента'
+  teachers:
+    teachera: 'преподавателя'
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'Ошибка в записи'
+      models:
+        lesson:
+          attributes:
+            date:
+              blank: 'Укажите дату занятия'
+            style:
+              required: 'Укажите направление'
+            teachers:
+              required: 'Укажите преподавателей'
+              blank: 'Укажите преподавателей'
+        subscription:
+          attributes:
+            subscription_type:
+              required: 'Укажите тип абонемента'
+            student:
+              required: 'Укажите студента'
+        subscription_type:
+          attributes:
+            name:
+              blank: 'Укажите имя'
+            number_of_lessons:
+              blank: 'Укажите количество уроков'
+            cost:
+              blank: 'Укажите стоимость'
+            duration_months:
+              blank: 'Укажите количество месяцев'
+            duration_weeks:
+              blank: 'Укажите количество недель'
+        user:
+          attributes:
+            current_password:
+              blank: 'Введите текущий пароль (чтобы применить обновления)'
+            email:
+              blank: 'Введите email'
+              taken: 'Такой email уже занят'
+              invalid: 'Невалидный email'
+            firstname:
+              blank: 'Введите имя'
+            lastname:
+              blank: 'Введите фамилию'
+            password:
+              blank: 'Введите пароль'
+              too_short: 'Пароль слишком короткий'

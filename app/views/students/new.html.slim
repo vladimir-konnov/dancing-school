@@ -1,0 +1,6 @@
+h2
+  => t('buttons.add')
+  = t('students.studenta')
+
+= render partial: 'students/form', locals: { student: @student, url: students_path,
+        button_name: t('buttons.create'), http_method: :post }

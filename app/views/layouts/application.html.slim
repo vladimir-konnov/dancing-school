@@ -1,20 +1,18 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>DancingSchool</title>
-    <%= csrf_meta_tags %>
+doctype html
+html
+  head
+    title DanDance админка
+    = csrf_meta_tags
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
 
-  <body>
-    <div class="flash-messages">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-    </div>
-    <%
+  body
+    div.flash-messages
+      p.notice = notice
+      p.alert = alert
 
-    <%= yield %>
-  </body>
-</html>
+    = render partial: 'layouts/top_navbar'
+
+    main.main
+      = yield

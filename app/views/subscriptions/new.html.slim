@@ -1,0 +1,7 @@
+h2
+  => t('buttons.add')
+  = t('subscriptions.subscription')
+
+= render partial: 'subscriptions/form', locals: { student: @student, subscription: @subscription,
+                                                  url: student_subscriptions_path(@student),
+                                                  button_name: t('buttons.create'), http_method: :post }

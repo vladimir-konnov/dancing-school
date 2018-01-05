@@ -1,0 +1,18 @@
+table
+  thead
+    tr
+      th = t('lessons.table.columns.date_style')
+      th = t('lessons.table.columns.teachers')
+      th = t('lessons.table.columns.attendee')
+      th = t('lessons.table.columns.profit')
+  tbody
+    - lessons.each do |lesson|
+      tr
+        td
+          => lesson.date
+          ' -
+          = lesson.style.name
+        td = lesson.teachers.map(&:name).join(', ')
+        td
+          a href=edit_lesson_path(lesson) = lesson.students.count
+        td = lesson.revenue

@@ -1,0 +1,16 @@
+a href=students_path = "Назад к #{t('students.studentam')}"
+br
+br
+= simple_form_for student, url: url, method: http_method, validate: true, html: {class: 'student-form'} do |f|
+  - if student.errors.present?
+    .form-group style="width: 500px;"
+      = f.error :base, class: 'alert alert-danger'
+  = f.input :firstname, label: 'Имя', required: true
+  = f.input :middlename, label: 'Отчество'
+  = f.input :lastname, label: 'Фамилия', required: true
+  = f.input :phone_number, label: 'Телефон'
+  = f.input :email, label: 'Email'
+  = f.input :vk_profile, label: 'Профиль VK'
+  = f.input :comment, label: 'Коментарий'
+
+  = f.button :submit, "#{button_name} #{t('students.studenta')}", class: 'btn btn-primary'

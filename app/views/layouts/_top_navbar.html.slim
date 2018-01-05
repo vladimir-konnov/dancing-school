@@ -1,0 +1,43 @@
+nav.navbar.fixed-top.navbar-expand-lg.navbar-light.bg-light
+  a.navbar-brand DanDance
+  /button.navbar-toggler type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+    span.navbar-toggler-icon
+
+  - if user_signed_in?
+    .collapse.navbar-collapse#navbarSupportedContent
+      ul.navbar-nav.mr-auto
+        - if current_user.teacher?
+          li.nav-item class="#{[controller_name == 'lessons' ? :active : nil].compact.join(' ')}"
+            a.nav-link href=lessons_path = t('header.lessons')
+          li.nav-item class="#{[controller_name == 'students' ? :active : nil].compact.join(' ')}"
+            a.nav-link href=students_path = t('header.students')
+          /li.nav-item class="#{[controller_name == 'subscriptions' ? :active : nil].compact.join(' ')}"
+            a.nav-link href="#" = t('header.subscriptions')
+        - if current_user.admin?
+          li.nav-item class="#{[controller_name == 'subscription_types' ? :active : nil].compact.join(' ')}"
+            a.nav-link href=subscription_types_path = t('header.subscription_types')
+          li.nav-item class="#{[controller_name == 'styles' ? :active : nil].compact.join(' ')}"
+            a.nav-link href=styles_path = t('header.styles')
+          /li.nav-item class="#{[controller_name == 'teachers' ? :active : nil].compact.join(' ')}"
+            a.nav-link href=edit_user_registration_path = t('header.administration')
+          li.nav-item class="#{[controller_name == 'payrolls' ? :active : nil].compact.join(' ')}"
+            a.nav-link href=payrolls_path = t('header.payrolls')
+          li.nav-item class="#{[controller_name == 'users' ? :active : nil].compact.join(' ')}"
+            a.nav-link href=edit_user_registration_path = t('header.account')
+        li.nav-item class="#{[controller_name == 'help' ? :active : nil].compact.join(' ')}"
+          a.nav-link href="#" = t('header.help')
+        li.nav-item
+          = link_to t('header.logout'), destroy_user_session_path, class: 'nav-link', method: :delete
+        /li.nav-item.dropdown
+          a#navbarDropdown.nav-link.dropdown-toggle href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            | Dropdown
+          div.dropdown-menu aria-labelledby="navbarDropdown"
+            a.dropdown-item href="#" Action
+            a.dropdown-item href="#" Another action
+            div.dropdown-divider
+            a.dropdown-item href="#" Something else here
+        /li.nav-item
+          a.nav-link.disabled href="#" Disabled</a>
+      /form.form-inline.my-2.my-lg-0
+        input.form-control.mr-sm-2 type="search" placeholder="Search" aria-label="Search"
+        button.btn.btn-outline-success.my-2.my-sm-0 type="submit" Search

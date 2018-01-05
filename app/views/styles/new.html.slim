@@ -1,0 +1,5 @@
+h2
+  => t('buttons.add')
+  = t('styles.style')
+
+= render partial: 'styles/form', locals: { style: @style, url: styles_path, button_name: t('buttons.create'), http_method: :post }

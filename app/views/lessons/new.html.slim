@@ -1,0 +1,5 @@
+h2
+  => t('buttons.add')
+  = t('lessons.lesson')
+
+= render partial: 'lessons/form', locals: { lesson: @lesson, http_method: :post, button_name: t('buttons.create') }

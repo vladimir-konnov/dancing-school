@@ -1,0 +1,16 @@
+h2 = t('header.students')
+
+= link_to t('buttons.add'), new_student_path
+
+.search
+  label for="filter" Искать
+  input#filter name="filter"
+
+table.students
+  thead
+    tr
+      th = t('students.table.columns.name')
+      th = 'Абонементы'
+  tbody
+    = render 'students/table', students: @students
+

@@ -1,0 +1,38 @@
+.lesson-form {
+  width: 700px;
+
+  .form-check {
+    padding-left: 20px;
+  }
+
+  abbr[title] {
+    text-decoration: none;
+    color: red;
+  }
+
+  .validation-error-block {
+    color: red;
+  }
+}
+
+.student-item {
+  list-style-type: none;
+}
+
+.tt-dataset {
+  width: 170px;
+  background-color: white;
+  max-height: 300px;
+  overflow-y: scroll;
+
+  .tt-suggestion {
+    border: 1px solid;
+
+    &:hover {
+      background-color: lightblue;
+    }
+  }
+}
+.tt-hint {
+  color: lightgrey;
+}

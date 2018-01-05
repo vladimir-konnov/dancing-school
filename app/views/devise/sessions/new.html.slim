@@ -4,7 +4,7 @@ h2 = t('devise.common.log_in')
   div.field
     = f.label :email, t('devise.common.email')
     br
-    = f.email_field :email, autofocus: true
+    = f.email_field :email, value: resource.email, autofocus: true
 
   div.field
     = f.label :password, t('devise.common.password')
@@ -14,7 +14,15 @@ h2 = t('devise.common.log_in')
   - if devise_mapping.rememberable?
     div.field
       = f.check_box :remember_me
-      = f.label :remember_me, t('devise.common.remember_me')
+      = f.label :remember_me, t('devise.common.remember_me'),
+              value: request.params[:user].present? ? request.params[:user][:remember_me] : '',
+              for: :user_remember_me
+
+  /- unless resource.valid?
+    ul.error
+      - resource.errors.messages.each_pair do |field, error_messages|
+        - error_messages.each do |error_message|
+          li = error_message
 
   div.actions
     = f.submit t('devise.common.log_in')

@@ -15,4 +15,11 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
+//= require twitter/typeahead
 //= require_tree .
+
+
+$(document).ajaxSend(function (event, xhr) {
+  var token = $("head meta[name=\"csrf-token\"]").prop('content');
+  xhr.setRequestHeader('X_CSRF_TOKEN', token);
+});

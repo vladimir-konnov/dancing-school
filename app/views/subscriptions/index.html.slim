@@ -1,0 +1,19 @@
+h2 = t('header.subscriptions')
+
+= link_to t('buttons.add'), new_student_subscription_path(@student)
+
+table border="1"
+  thead
+    tr
+      td Название
+      td Осталось занятий (час/полтора)
+      td Куплен
+      td Кончается
+  tbody
+    - @subscriptions.each do |subscription|
+      tr
+        td
+          a href=edit_student_subscription_path(@student, subscription) = subscription.name
+        td = subscription.lessons_left
+        td = subscription.purchase_date
+        td = subscription.expiry_date

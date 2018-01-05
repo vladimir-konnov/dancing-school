@@ -1,0 +1,5 @@
+h2
+  => t('buttons.edit')
+  = t('lessons.lesson')
+
+= render partial: 'lessons/form', locals: { lesson: @lesson, students: @students, http_method: :put, button_name: t('buttons.save') }

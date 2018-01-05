@@ -23,7 +23,7 @@ ru:
       characters_minimum: 'символов минимум'
       leave_blank_if_you_dont_want_to_change_it: "оставьте пустым, если не хотите менять"
       we_need_your_current_password_to_confirm_your_changes: 'нам нужен ваше пароль для подтверждения изменений'
-      cancel_my_account: 'Отменить мой аккаунт'
+      cancel_my_account: 'Удалить мой аккаунт'
       are_your_sure: 'Вы уверены?'
       unhappy: 'Не довольны?'
       forgot_your_password: 'Забыли пароль?'

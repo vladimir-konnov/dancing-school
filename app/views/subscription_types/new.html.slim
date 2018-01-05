@@ -1,0 +1,6 @@
+h2
+  => t('buttons.add')
+  = t('subscription_types.subscription_type')
+
+= render partial: 'subscription_types/form', locals: { subscription_type: @subscription_type,
+        url: subscription_types_path, button_name: t('buttons.create'), http_method: :post }

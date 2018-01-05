@@ -20,3 +20,5 @@
 .ruby-version
 .idea
 .rspec
+.gitignore
+.env

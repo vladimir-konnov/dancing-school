@@ -1,0 +1,6 @@
+- students.each do |student|
+  tr
+    td
+      a href=edit_student_path(student) = student.name
+    td
+      a href=student_subscriptions_path(student) Абонементы

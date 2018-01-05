@@ -1,0 +1,4 @@
+- students.order(:firstname, :lastname).each do |student|
+  tr
+    td = "#{student.firstname} #{student.lastname}"
+    td = link_to t('buttons.remove'), '#', onClick: "removeStudent(#{lesson.id}, #{student.id}); return false;"

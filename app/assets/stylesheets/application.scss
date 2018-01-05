@@ -15,7 +15,12 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 
+@import 'jquery-ui/core';
+@import 'jquery-ui/autocomplete';
+
 @import 'header';
+@import 'lessons';
+@import 'subscription';
 
 .main {
   padding-left: 60px;
