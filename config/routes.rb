@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
+    #masquerades: 'admin/masquerades',
     registrations: 'users/registrations'
   }
 
@@ -9,7 +10,7 @@ Rails.application.routes.draw do
 
   get '/help' => 'root#help', as: :help
 
-  #resource :account
+  resource :administration
 
   resources :styles
   resources :subscription_types
@@ -19,7 +20,6 @@ Rails.application.routes.draw do
     resources :subscriptions
   end
   resources :lessons do
-    #get :students, on: :collection
     post :add_student, on: :member
     delete 'remove_student/:student_id', action: :remove_student, on: :member, as: :remove_student
   end

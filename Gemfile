@@ -39,6 +39,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 #gem 'will_paginate'
 gem 'devise'
+gem 'devise_masquerade'
 gem 'simple_form'
 gem 'sidekiq'
 

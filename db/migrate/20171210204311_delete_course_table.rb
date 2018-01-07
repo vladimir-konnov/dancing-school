@@ -6,7 +6,7 @@ class DeleteCourseTable < ActiveRecord::Migration[5.1]
 
     add_column :lessons, :style_id, :integer, null: false, index: true
     add_foreign_key :lessons, :styles
-    
+
     create_join_table :lessons, :teachers do |t|
       t.index :lesson_id
       t.index :teacher_id

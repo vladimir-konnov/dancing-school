@@ -1,0 +1,19 @@
+table.users-table border="1"
+  thead
+    tr
+      th Пользователь
+      th Роль
+      - if current_user.administrator_user?
+        th
+  tbody
+    - @users.each do |user|
+      tr
+        td = user.name
+        td
+          = simple_form_for user, method: :put, url: administration_path, html: { class: 'user-roles' } do |f|
+            = f.input :id, as: :hidden
+            = f.association :roles, as: :check_boxes, html5: true, input_html: { class: 'js-role-click' },
+                    collection: Role.order(:name), id_method: :id, label_method: :name, label: false
+        - if current_user.administrator_user?
+          td
+            = link_to "Залогиниться как", masquerade_path(user)

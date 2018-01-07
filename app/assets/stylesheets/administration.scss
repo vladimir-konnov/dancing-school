@@ -1,0 +1,15 @@
+.users-table {
+  .user-roles {
+    .checkbox {
+      display: block;
+
+      label {
+        white-space: nowrap;
+
+        input {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
