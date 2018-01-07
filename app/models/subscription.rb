@@ -37,7 +37,15 @@ class Subscription < ApplicationRecord
   }
 
   def lessons_left
-    number_of_lessons - lesson_students.count
+    number_of_lessons - lessons_visited
+  end
+
+  def lessons_left=(lessons)
+    self.number_of_lessons = lessons_visited + lessons.to_i
+  end
+
+  def lessons_visited
+    lesson_students.count
   end
 
   def expired?

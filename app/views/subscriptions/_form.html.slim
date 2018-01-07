@@ -9,12 +9,16 @@ br
           input_html: {class: 'form-control form-check-input'},
           collection: SubscriptionType.all.order(:name), label_method: :name, value_method: :id, include_blank: false,
           item_wrapper_class: 'form-check', item_wrapper_tag: 'div', required: true
-  = f.input :purchase_date, label: 'Дата покупки', as: :date, html5: true, required: true
+  - if subscription.new_record?
+    = f.input :purchase_date, label: 'Дата покупки', as: :date, html5: true, required: true
+    = f.simple_fields_for :paired_subscription, subscription.paired_subscription || subscription.build_paired_subscription do |ff|
+      = ff.input :student_id, label: 'Парный с', as: :select, collection: Student.where.not(id: subscription.student.id),
+              label_method: :name, value_method: :id, required: false
   = f.input :no_expiry, label: 'Бессрочный', as: :radio_buttons,
           item_wrapper_tag: 'div', item_wrapper_class: 'form-check', required: true
-  = f.simple_fields_for :paired_subscription, subscription.paired_subscription || subscription.build_paired_subscription do |ff|
-    = ff.input :student_id, label: 'Парный с', as: :select, collection: Student.where.not(id: subscription.student.id),
-            label_method: :name, value_method: :id, required: false
+  - unless subscription.new_record?
+    = f.input :expiry_date, label: 'Дата окончания', as: :date, html5: true, required: true
+    = f.input :lessons_left, label: 'Осталось занятий', as: :integer, required: true, input_html: { min: 0 }
   /.form-group
     = label_tag 'Бессрочный', nil, class: 'control-label'
     = label_tag for: 'free-of-charge_yes' do

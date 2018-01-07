@@ -6,7 +6,7 @@ table border="1"
   thead
     tr
       td Название
-      td Осталось занятий (час/полтора)
+      td Осталось занятий
       td Куплен
       td Кончается
   tbody
@@ -14,6 +14,9 @@ table border="1"
       tr
         td
           a href=edit_student_subscription_path(@student, subscription) = subscription.name
-        td = subscription.lessons_left
+        td
+          =>  subscription.lessons_left
+          ' /
+          = subscription.number_of_lessons
         td = subscription.purchase_date
         td = subscription.expiry_date
