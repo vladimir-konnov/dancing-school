@@ -1,4 +1,4 @@
-$(() => {
+document.addEventListener('turbolinks:load', () => {
   $('.js-role-click').on('change', (event) => {
     let form = $(event.target).closest('form');
     $.ajax({

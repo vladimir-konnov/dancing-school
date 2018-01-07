@@ -1,4 +1,4 @@
-$(() => {
+document.addEventListener('turbolinks:load', () => {
   let timeout = null;
   $('#filter').on('keyup', (event) => {
     clearTimeout(timeout);
