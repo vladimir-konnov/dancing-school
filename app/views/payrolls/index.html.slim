@@ -7,5 +7,4 @@ table.payroll-table
     - @payroll.each_pair do |teacher, amount|
       tr
         td = teacher.name
-        /td = number_to_currency(amount, locale: Rails.configuration.i18n.default_locale)
-        td = number_to_currency(amount, units: 'P')
+        td = number_to_currency amount

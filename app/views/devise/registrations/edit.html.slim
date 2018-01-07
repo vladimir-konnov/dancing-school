@@ -20,9 +20,10 @@ h2
   .field
     = f.text_field :lastname, required: true, value: params[:user].present? ? params[:user][:lastname] : resource.lastname
 
-  .field
-    = f.label :banned, 'Заблокирован'
-    = f.check_box :banned, value: params[:user].present? ? params[:user][:banned] : resource.banned
+  - if current_user.admin?
+    .field
+      = f.label :banned, 'Заблокирован'
+      = f.check_box :banned, value: params[:user].present? ? params[:user][:banned] : resource.banned
 
   div.field
     = f.label :email, t('devise.common.email')
@@ -64,17 +65,18 @@ h2
   .field
     = f.password_field :current_password, autocomplete: 'off'
 
-  .field
-    = f.label :comment, 'Комментарий'
-  .field
-    = f.text_area :comment, value: params[:user].present? ? params[:user][:comment] : resource.comment
+  - if current_user.admin?
+    .field
+      = f.label :comment, 'Комментарий'
+    .field
+      = f.text_area :comment, value: params[:user].present? ? params[:user][:comment] : resource.comment
 
   br
 
   div.actions
     = f.submit t('devise.common.update')
 
-- unless current_user.administrator_user?
+- unless current_user.teacher? || current_user.admin? || current_user.administrator_user?
   h3 = t('devise.common.cancel_my_account')
 
   p

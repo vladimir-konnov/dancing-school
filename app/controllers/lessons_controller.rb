@@ -7,7 +7,12 @@ class LessonsController < ApplicationController
     now = Time.zone.now.to_date
     from = now - 1.month
     to = now + 2.weeks
-    @lessons = Lesson.where('date BETWEEN ? AND ?', from, to).includes(:style).all
+    @lessons = Lesson.where('date BETWEEN ? AND ?', from, to)
+    @lessons_revenue = Hash[@lessons.joins(:subscriptions).select('SUM(lesson_price) as price, lessons.id')
+                         .group('lessons.id').map { |lesson| [lesson.id, lesson.price] }]
+    @lesson_students_count = Hash[@lessons.joins(:lesson_students).select('COUNT(1) as count, lessons.id')
+                               .group('lessons.id').map { |lesson| [lesson.id, lesson.count] }]
+    @lessons = @lessons.includes(:style, :teachers)
   end
 
   def new

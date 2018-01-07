@@ -3,16 +3,17 @@ class Subscription < ApplicationRecord
   belongs_to :subscription_type, required: true, inverse_of: :subscriptions
   belongs_to :student, required: true, class_name: 'Student', inverse_of: :subscriptions
   belongs_to :paired_with, required: false, class_name: 'Subscription', inverse_of: :paired_subscription
-  has_one :paired_subscription, required: false, class_name: 'Subscription', inverse_of: :paired_with, foreign_key: :paired_with_id
-  has_many :lesson_students, class_name: 'LessonStudent', inverse_of: :subscription
+  has_one :paired_subscription, required: false, class_name: 'Subscription', inverse_of: :paired_with,
+          foreign_key: :paired_with_id, dependent: :nullify
+  has_many :lesson_students, class_name: 'LessonStudent', inverse_of: :subscription, dependent: :nullify
   has_many :lessons, through: :lesson_students
 
   accepts_nested_attributes_for :paired_subscription
 
-  validates_presence_of :name, :purchase_date, :price, :user_id
+  validates_presence_of :name, :purchase_date, :price, :user_id, :number_of_lessons, :lesson_price
   validates_presence_of :expiry_date, unless: :no_expiry?
   validates_inclusion_of :no_expiry, in: [true, false]
-  validate if: -> { subscription_type.present? } do |subscription|
+  validate do |subscription|
     subscription.errors[:base] << ' Количество уроков меньше нуля' if subscription.lessons_left < 0
   end
   validate if: -> { student.present? && purchase_date.present? } do |subscription|
@@ -31,14 +32,24 @@ class Subscription < ApplicationRecord
 
   scope :active, -> {
     where('purchase_date <= :date AND (no_expiry OR expiry_date >= :date)', date: Time.zone.now.to_date)
+      .where("number_of_lessons > (#{LessonStudent.where('subscription_id = subscriptions.id').select('COUNT(1)').to_sql})")
       .order(purchase_date: :asc)
   }
 
   def lessons_left
-    subscription_type.number_of_lessons - lessons.count
+    number_of_lessons - lesson_students.count
   end
 
   def expired?
     !no_expiry && expiry_date < Time.zone.now.to_date
+  end
+
+  def update_missing_lessons
+    unless expired? || lessons_left <= 0
+      lessons = student.lessons.where('date >= ?', purchase_date).where('lessons_students.subscription_id IS NULL')
+      lessons = lessons.where('date <= ?', expiry_date) unless no_expiry?
+      ids = lessons.order(date: :asc).limit(lessons_left).pluck(:id)
+      student.lesson_students.where(lesson_id: ids).update_all(subscription_id: id)
+    end
   end
 end

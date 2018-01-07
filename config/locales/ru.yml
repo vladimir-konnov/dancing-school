@@ -24,6 +24,14 @@ ru:
         teachers: 'Преподаватели'
         attendee: 'Присутствовало'
         profit: 'Прибыль'
+  number:
+    currency:
+      format:
+        unit: '₽'
+        delimiter: ''
+        separator: ','
+        precision: 2
+        format: '%n%u'
   students:
     student: 'ученик'
     studenta: 'ученика'

@@ -1,4 +1,6 @@
 class PayrollsService
+  DANDANCE_PERCENT = 20
+
   def initialize(date)
     @date = date
   end
@@ -10,14 +12,15 @@ class PayrollsService
     teachers = lessons.map(&:teachers).flatten.uniq
     payroll = Hash[teachers.map { |teacher| [teacher, 0] }]
     lessons.each do |lesson|
-      lesson.lesson_students.preload(subscription: :subscription_type).each do |lesson_student|
-        subscription_type = lesson_student.subscription&.subscription_type
-        if subscription_type.present?
-          lesson_cost = subscription_type.cost / subscription_type.number_of_lessons
-          payroll.each_pair { |teacher, _| payroll[teacher] += lesson_cost / teachers.count }
-        end
+      lesson.lesson_students.joins(:subscription).preload(:subscription).each do |lesson_student|
+        teacher_salary = lesson_student.subscription.lesson_price * PayrollsService.salary_percent / lesson.teachers.count
+        lesson.teachers.each { |teacher| payroll[teacher] += teacher_salary }
       end
     end
     payroll
+  end
+
+  def self.salary_percent
+    @salary_percent ||= 1 - DANDANCE_PERCENT / 100.0
   end
 end

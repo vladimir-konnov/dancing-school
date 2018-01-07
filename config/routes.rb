@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   root to: 'root#index'
 
+  get '/help' => 'root#help', as: :help
+
   #resource :account
 
   resources :styles

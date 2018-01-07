@@ -17,6 +17,7 @@ class SubscriptionsController < ApplicationController
     @subscription.student = @student
     construct_subscription
     if @subscription.save
+      @subscription.update_missing_lessons
       redirect_to edit_student_subscription_path(@student, @subscription)
     else
       render :new
@@ -27,8 +28,9 @@ class SubscriptionsController < ApplicationController
   end
 
   def update
-    construct_subscription
-    if @subscription.save
+    #construct_subscription false
+    if @subscription.update_attributes(edit_subscription_params)
+      @subscription.update_missing_lessons
       redirect_to student_subscriptions_path(@student)
     else
       render :edit
@@ -44,7 +46,9 @@ class SubscriptionsController < ApplicationController
         @subscription.subscription_type.duration_months.months +
         @subscription.subscription_type.duration_weeks.weeks
       @subscription.price = @subscription.subscription_type.cost
+      @subscription.number_of_lessons = @subscription.subscription_type.number_of_lessons
     end
+    @subscription.lesson_price = @subscription.price / @subscription.number_of_lessons
     if @subscription.paired_subscription.present? && @subscription.paired_subscription.student.nil?
       @subscription.paired_subscription = nil
     end
@@ -77,5 +81,9 @@ class SubscriptionsController < ApplicationController
       :subscription_type_id, :student_id, :purchase_date, :no_expiry,
       paired_subscription_attributes: [:student_id]
     )
+  end
+
+  def edit_subscription_params
+    params.require(:subscription).permit(:no_expiry)
   end
 end

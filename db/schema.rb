@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180101225156) do
+ActiveRecord::Schema.define(version: 20180105213919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,8 @@ ActiveRecord::Schema.define(version: 20180101225156) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.boolean "no_expiry", default: false, null: false
+    t.integer "number_of_lessons", default: 0, null: false
+    t.decimal "lesson_price", default: "0.0", null: false
     t.index ["paired_with_id"], name: "index_subscriptions_on_paired_with_id"
     t.index ["student_id"], name: "index_subscriptions_on_student_id"
     t.index ["subscription_type_id"], name: "index_subscriptions_on_subscription_type_id"
@@ -127,8 +129,8 @@ ActiveRecord::Schema.define(version: 20180101225156) do
     t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "firstname"
-    t.string "lastname"
+    t.string "firstname", null: false
+    t.string "lastname", null: false
     t.string "middlename"
     t.boolean "banned", default: false, null: false
     t.text "comment"
