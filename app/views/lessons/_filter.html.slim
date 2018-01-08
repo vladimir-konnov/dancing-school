@@ -1,1 +1,5 @@
-form
+= form_tag lessons_path, method: :get do
+  = date_field_tag :from, from
+  = date_field_tag :to, to
+  = select_tag :style_id, options_from_collection_for_select(Style.order(:name), :id, :name, style_id), include_blank: true
+  = submit_tag 'Фильтр'

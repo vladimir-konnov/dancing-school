@@ -4,10 +4,13 @@ class LessonsController < ApplicationController
   before_action :load_lesson, only: [:edit, :update, :destroy, :add_student, :remove_student]
 
   def index
-    now = Time.zone.now.to_date
-    from = now - 1.month
-    to = now + 2.weeks
-    @lessons = Lesson.where('date BETWEEN ? AND ?', from, to)
+    @from = Date.parse(params[:from]) rescue nil
+    @from = Time.zone.now.to_date - 1.month if @from.nil?
+    @to = Date.parse(params[:to]) rescue nil
+    @to = @from + 1.month + 2.weeks if @to.nil?
+    @style_id = params[:style_id]
+    @lessons = Lesson.where('date BETWEEN ? AND ?', @from, @to).order(:date)
+    @lessons = @lessons.where(style_id: @style_id) if @style_id.present?
     @lessons_revenue = Hash[@lessons.joins(:subscriptions).select('SUM(lesson_price) as price, lessons.id')
                          .group('lessons.id').map { |lesson| [lesson.id, lesson.price] }]
     @lesson_students = @lessons.joins(:lesson_students)

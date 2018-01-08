@@ -2,6 +2,6 @@ h2 = t('header.lessons')
 
 = link_to t('buttons.add'), new_lesson_path
 
-= render partial: 'lessons/filter'
+= render partial: 'lessons/filter', locals: { from: @from, to: @to, style_id: @style_id }
 = render partial: 'lessons/table', locals: { lessons: @lessons, lesson_students_count: @lesson_students_count,
         lessons_revenue: @lessons_revenue, without_subscription: @without_subscription }
