@@ -1,4 +1,4 @@
-table
+table.lessons-table
   thead
     tr
       th = t('lessons.table.columns.date_style')
@@ -15,4 +15,7 @@ table
         td = lesson.teachers.map(&:name).join(', ')
         td
           a href=edit_lesson_path(lesson) = lesson_students_count[lesson.id] || 0
+          - if without_subscription.include?(lesson.id)
+            br
+            span.without-subscription Без абонемента
         td = number_to_currency lessons_revenue[lesson.id] || 0

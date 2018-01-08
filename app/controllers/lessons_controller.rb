@@ -10,8 +10,11 @@ class LessonsController < ApplicationController
     @lessons = Lesson.where('date BETWEEN ? AND ?', from, to)
     @lessons_revenue = Hash[@lessons.joins(:subscriptions).select('SUM(lesson_price) as price, lessons.id')
                          .group('lessons.id').map { |lesson| [lesson.id, lesson.price] }]
-    @lesson_students_count = Hash[@lessons.joins(:lesson_students).select('COUNT(1) as count, lessons.id')
+    @lesson_students = @lessons.joins(:lesson_students)
+    @lesson_students_count = Hash[@lesson_students.select('COUNT(1) as count, lessons.id')
                                .group('lessons.id').map { |lesson| [lesson.id, lesson.count] }]
+    @without_subscription = @lesson_students.where('lessons_students.subscription_id': nil)
+                              .select('lessons.id').group('lessons.id').pluck(:id)
     @lessons = @lessons.includes(:style, :teachers)
   end
 
@@ -49,14 +52,14 @@ class LessonsController < ApplicationController
     student = Student.find(params[:student_id])
     return render json: { error: 'Wrong student_id' }, status: 422 if student.nil?
     @lesson.add_student student
-    render partial: 'lessons/students_list', locals: { lesson: @lesson, students: @lesson.students }
+    render partial: 'lessons/students_list', locals: { lesson: @lesson }
   end
 
   def remove_student
     student = Student.find(params[:student_id])
     return render json: { error: 'Wrong student_id' }, status: 422 if student.nil?
     @lesson.remove_student student
-    render partial: 'lessons/students_list', locals: { lesson: @lesson, students: @lesson.students }
+    render partial: 'lessons/students_list', locals: { lesson: @lesson }
   end
 
   private

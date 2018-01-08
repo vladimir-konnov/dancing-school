@@ -1,4 +1,9 @@
-- students.order(:firstname, :lastname).each do |student|
+- lesson.lesson_students.preload(:student).sort_by{ |ls| ls.student.name }.each do |lesson_student|
+  - student = lesson_student.student
   tr
-    td = "#{student.firstname} #{student.lastname}"
+    td
+      = student.name
+      - if lesson_student.subscription_id.nil?
+        br
+        span.without-subscription Без абонемента
     td = link_to t('buttons.remove'), '#', onClick: "removeStudent(#{lesson.id}, #{student.id}); return false;"

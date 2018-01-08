@@ -9,7 +9,7 @@ table.students-list
       th Имя
       th Удалить
   tbody
-    = render 'lessons/students_list', lesson: lesson, students: f.object.students
+    = render 'lessons/students_list', lesson: lesson
 
 = text_field_tag :lesson_students, nil, id: 'students-lookup', size: 20
 = f.button :button, t('buttons.add'), id: 'add-btn', class: 'btn-secondary',
