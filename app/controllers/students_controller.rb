@@ -22,7 +22,6 @@ class StudentsController < ApplicationController
   end
 
   def edit
-
   end
 
   def update
@@ -46,6 +45,10 @@ class StudentsController < ApplicationController
       end
     end
     render json: result
+  end
+
+  def visits
+    
   end
 
   private

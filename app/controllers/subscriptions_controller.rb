@@ -9,7 +9,8 @@ class SubscriptionsController < ApplicationController
   end
 
   def new
-    @subscription = @student.subscriptions.build(purchase_date: Time.zone.now, expiry_date: Time.zone.now + 1.month)
+    now = Time.zone.now.to_date
+    @subscription = @student.subscriptions.build(purchase_date: now, expiry_date: now + 1.month + 1.week)
   end
 
   def create

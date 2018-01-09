@@ -1,10 +1,30 @@
-table.payroll-table
+- options = options_for_select @months.map{ |m| ["#{t("months.#{m.month}")} #{m.year}", "#{m.month}_#{m.year}"]},
+        "#{@date.month}_#{@date.year}"
+= form_tag payrolls_path, method: :get do
+  = select_tag :month, options, include_blank: false
+  = submit_tag 'Фильтр'
+
+table.payroll-table border="1"
   thead
     tr
       th Имя
       th Зарплата
+      th Продано абонементов
   tbody
     - @payroll.each_pair do |teacher, amount|
       tr
         td = teacher.name
         td = number_to_currency amount
+        td
+          - subscriptions = @subscriptions[teacher]
+          - if subscriptions.present?
+            table
+              tbody
+                - subscriptions.each do |subscription|
+                  tr
+                    td
+                      a href=edit_student_subscription_path(subscription.student, subscription) = subscription.name
+                    td = subscription.student.name
+                    td = number_to_currency subscription.price, locale: :ru
+            ' Всего
+            = number_to_currency subscriptions.map(&:price).sum, locale: :ru

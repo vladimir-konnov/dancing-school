@@ -33,5 +33,11 @@ module Concerns::Authorizable
         raise NotAuthorized unless current_user&.has_role?(role)
       end
     end
+
+    def authorize_superadmin!
+      before_action do
+        raise NotAuthorized unless current_user&.administrator_user?
+      end
+    end
   end
 end

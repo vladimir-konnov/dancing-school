@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     get :autocomplete, on: :collection
     get :filter, on: :collection
     resources :subscriptions
+    get :visits, on: :member
   end
   resources :lessons do
     post :add_student, on: :member

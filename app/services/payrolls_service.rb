@@ -1,7 +1,8 @@
 class PayrollsService
   DANDANCE_PERCENT = 20
 
-  def initialize(date)
+  def initialize(user, date)
+    @user = user
     @date = date
   end
 
@@ -9,6 +10,7 @@ class PayrollsService
     start_date = @date.beginning_of_month
     end_date = @date.end_of_month
     lessons = Lesson.where('date BETWEEN ? AND ?', start_date, end_date).preload(:teachers)
+    lessons = lessons.joins(:teachers).where('users.id': @user) unless @user.administrator_user?
     teachers = lessons.map(&:teachers).flatten.uniq
     payroll = Hash[teachers.map { |teacher| [teacher, 0] }]
     lessons.each do |lesson|

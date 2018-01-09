@@ -2,7 +2,8 @@
   - student = lesson_student.student
   tr
     td
-      = student.name
+      => student.name
+      = link_to 'Посещения', visits_student_path(student)
       - if lesson_student.subscription_id.nil?
         br
         span.without-subscription Без абонемента

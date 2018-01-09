@@ -10,6 +10,7 @@ class LessonsController < ApplicationController
     @to = @from + 1.month + 2.weeks if @to.nil?
     @style_id = params[:style_id]
     @lessons = Lesson.where('date BETWEEN ? AND ?', @from, @to).order(:date)
+    @lessons = @lessons.joins(:teachers).where('users.id': current_user) unless current_user.administrator_user?
     @lessons = @lessons.where(style_id: @style_id) if @style_id.present?
     @lessons_revenue = Hash[@lessons.joins(:subscriptions).select('SUM(lesson_price) as price, lessons.id')
                          .group('lessons.id').map { |lesson| [lesson.id, lesson.price] }]
