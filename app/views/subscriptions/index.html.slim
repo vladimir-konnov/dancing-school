@@ -5,10 +5,11 @@ h2 = t('header.subscriptions')
 table border="1"
   thead
     tr
-      td Название
-      td Осталось занятий
-      td Куплен
-      td Кончается
+      th Название
+      th Осталось занятий
+      th Куплен
+      th Кончается
+      th Удалить
   tbody
     - @subscriptions.each do |subscription|
       tr
@@ -20,3 +21,6 @@ table border="1"
           = subscription.number_of_lessons
         td = subscription.purchase_date
         td = subscription.expiry_date
+        td
+          - if subscription.lesson_students.count <= 0
+            = link_to 'Удалить', student_subscription_path(@student, subscription), method: :delete

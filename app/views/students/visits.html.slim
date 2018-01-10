@@ -1,1 +1,5 @@
-| В прогрессе...
+= form_tag visits_student_path(@student), method: :get do
+  = date_field_tag :from, @from
+  = date_field_tag :to, @to
+  = submit_tag 'Фильтр'
+a href=student_subscriptions_path(@student) Назад к абонементам

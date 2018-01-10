@@ -11,7 +11,7 @@ br
           item_wrapper_class: 'form-check', item_wrapper_tag: 'div', required: true
   - if subscription.new_record?
     = f.input :purchase_date, label: 'Дата покупки', as: :date, html5: true, required: true
-    = f.simple_fields_for :paired_subscription, subscription.paired_subscription || subscription.build_paired_subscription do |ff|
+    /= f.simple_fields_for :paired_subscription, subscription.paired_subscription || subscription.build_paired_subscription do |ff|
       = ff.input :student_id, label: 'Парный с', as: :select, collection: Student.where.not(id: subscription.student.id),
               label_method: :name, value_method: :id, required: false
   = f.input :no_expiry, label: 'Бессрочный', as: :radio_buttons,

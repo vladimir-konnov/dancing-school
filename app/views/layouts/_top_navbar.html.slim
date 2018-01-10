@@ -18,6 +18,7 @@ nav.navbar.fixed-top.navbar-expand-lg.navbar-light.bg-light
             a.nav-link href=styles_path = t('header.styles')
           li.nav-item class="#{[controller_name == 'administrations' ? :active : nil].compact.join(' ')}"
             a.nav-link href=administration_path = t('header.administration')
+        - if current_user.teacher?
           li.nav-item class="#{[controller_name == 'payrolls' ? :active : nil].compact.join(' ')}"
             a.nav-link href=payrolls_path = t('header.payrolls')
         li.nav-item class="#{[controller_name == 'users' ? :active : nil].compact.join(' ')}"

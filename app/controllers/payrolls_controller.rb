@@ -1,5 +1,5 @@
 class PayrollsController < ApplicationController
-  authorize! :admin
+  authorize! :teacher
 
   def index
     now = Time.zone.now.to_date

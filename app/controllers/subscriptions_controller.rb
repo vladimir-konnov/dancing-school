@@ -2,7 +2,7 @@ class SubscriptionsController < ApplicationController
   authorize! :teacher
 
   before_action :init_student
-  before_action :init_subscription, only: [:edit, :update]
+  before_action :init_subscription, only: [:edit, :update, :destroy]
 
   def index
     @subscriptions = @student.subscriptions
@@ -36,6 +36,11 @@ class SubscriptionsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @subscription.destroy if @subscription.lesson_students.count <= 0
+    redirect_to student_subscriptions_path(@student)
   end
 
   private

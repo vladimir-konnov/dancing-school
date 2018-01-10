@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
   authorize! :teacher
 
-  before_action :init_student, only: %i(edit update)
+  before_action :init_student, only: %i(edit update visits)
 
   def index
     @students = Student.all
@@ -48,7 +48,9 @@ class StudentsController < ApplicationController
   end
 
   def visits
-    
+    now = Time.zone.now.to_date
+    @from = now
+    @to = now + 1.month
   end
 
   private
