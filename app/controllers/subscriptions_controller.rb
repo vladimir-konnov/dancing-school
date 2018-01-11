@@ -55,6 +55,7 @@ class SubscriptionsController < ApplicationController
       @subscription.number_of_lessons = @subscription.subscription_type.number_of_lessons
     end
     @subscription.lesson_price = @subscription.price / @subscription.number_of_lessons
+=begin
     if @subscription.paired_subscription.present? && @subscription.paired_subscription.student.nil?
       @subscription.paired_subscription = nil
     end
@@ -70,6 +71,7 @@ class SubscriptionsController < ApplicationController
         expiry_date: @subscription.expiry_date
       )
     end
+=end
   end
 
   def init_student
@@ -85,7 +87,7 @@ class SubscriptionsController < ApplicationController
   def subscription_params
     params.require(:subscription).permit(
       :subscription_type_id, :student_id, :purchase_date, :no_expiry,
-      paired_subscription_attributes: [:student_id]
+      #paired_subscription_attributes: [:student_id]
     )
   end
 
