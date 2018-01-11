@@ -12,7 +12,9 @@ Rails.application.routes.draw do
 
   resource :administration
 
-  resources :styles
+  resources :styles do
+    get :visits, on: :member
+  end
   resources :subscription_types
   resources :students do
     get :autocomplete, on: :collection

@@ -1,0 +1,31 @@
+table.students {
+  width: auto;
+
+  td.vertical-container {
+    vertical-align: bottom;
+
+    &.weekend {
+      background-color: #eee;
+    }
+
+    .vertical-text {
+      transform: rotate(270deg);
+      width: 30px;
+      white-space: nowrap;
+    }
+  }
+  td.align-center {
+    text-align: center;
+    vertical-align: middle;
+
+    i.glyphicon {
+      display: block;
+
+      &.glyphicon-ok {
+        &:before {
+          content: '\2713';
+        }
+      }
+    }
+  }
+}

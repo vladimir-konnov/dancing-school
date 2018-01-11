@@ -1,13 +1,13 @@
-= form_tag visits_student_path(@student), method: :get do
+= form_tag visits_styles_path(@style), method: :get do
   = date_field_tag :from, @from
   = date_field_tag :to, @to
   = submit_tag 'Фильтр'
-a href=students_path Назад к студентам
+a href=styles_path Назад к направлениям
 
-table.students.table.table-bordered
+table.styles.table.table-bordered
   thead
     tr
-      td style="width: 150px; height:150px; vertical-align: middle" Направление\Дата
+      td style="width: 150px; height:150px; vertical-align: middle" Студент\Дата
       - (@from..@to).each do |date|
         td.vertical-container class=('weekend' if weekend?(date))
           p.vertical-text = date.strftime('%-d %b %Y')

@@ -1,7 +1,7 @@
 class StylesController < ApplicationController
   authorize! :admin
 
-  before_action :init_style, only: %i[edit update destroy]
+  before_action :init_style, only: %i[edit update destroy visits]
 
   def index
     @styles = Style.all
@@ -35,6 +35,15 @@ class StylesController < ApplicationController
   def destroy
     @style.destroy if @style.lessons.length <= 0
     redirect_to styles_path
+  end
+
+  def visits
+    @from = Date.parse(params[:from]) rescue nil
+    @from = Time.zone.now.to_date - 1.month if @from.nil?
+    @to = Date.parse(params[:to]) rescue nil
+    @to = @from + 1.month if @to.nil?
+    @to = @from if @to < @from
+
   end
 
   private

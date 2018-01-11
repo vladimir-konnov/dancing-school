@@ -48,9 +48,19 @@ class StudentsController < ApplicationController
   end
 
   def visits
-    now = Time.zone.now.to_date
-    @from = now
-    @to = now + 1.month
+    @from = Date.parse(params[:from]) rescue nil
+    @from = Time.zone.now.to_date - 1.month if @from.nil?
+    @to = Date.parse(params[:to]) rescue nil
+    @to = @from + 1.month if @to.nil?
+    @to = @from if @to < @from
+    @lessons = @student.lessons.where(date: @from..@to).order(:date).preload(:style)
+    @lesson_style_matrix = {}
+    @lessons.each do |lesson|
+      lesson_style_dates = @lesson_style_matrix[lesson.style.name]
+      lesson_style_dates = @lesson_style_matrix[lesson.style.name] = {} if lesson_style_dates.nil?
+      lesson_style_dates[lesson.date] = 0 if lesson_style_dates[lesson.date].nil?
+      lesson_style_dates[lesson.date] += 1
+    end
   end
 
   private
