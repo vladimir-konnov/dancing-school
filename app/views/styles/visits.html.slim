@@ -1,4 +1,4 @@
-= form_tag visits_styles_path(@style), method: :get do
+= form_tag visits_style_path(@style), method: :get do
   = date_field_tag :from, @from
   = date_field_tag :to, @to
   = submit_tag 'Фильтр'
@@ -12,10 +12,27 @@ table.styles.table.table-bordered
         td.vertical-container class=('weekend' if weekend?(date))
           p.vertical-text = date.strftime('%-d %b %Y')
   tbody
-    - @lesson_style_matrix.keys.sort.each do |style|
+    tr
+      td Всего
+      - totals = {}
+      - (@from..@to).each do |date|
+        - @lesson_student_matrix.each_pair do |student, lessons|
+          - totals[date] = 0 if totals[date].nil?
+          - totals[date] += lessons[date] || 0
+        td
+          = totals[date]
+    - @lesson_student_matrix.keys.sort.each do |student|
       tr
-        td = style
+        td
+          span = student.name
+          br
+          span> = link_to 'Абонементы', student_subscriptions_path(student)
+          - current_subscription = student.current_subscription
+          - if current_subscription.present?
+            ' Осталось занятий
+            span
+              a href=edit_student_subscription_path(student, current_subscription) = current_subscription.lessons_left
         - (@from..@to).each do |date|
           td.align-center
-            - (@lesson_style_matrix[style][date] || 0).times do
+            - (@lesson_student_matrix[student][date] || 0).times do
               i.glyphicon.glyphicon-ok

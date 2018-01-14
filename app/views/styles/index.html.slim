@@ -12,6 +12,8 @@ table.styles border="1"
       tr
         td
           a href=edit_style_path(style) = style.name
+          br
+          a href=visits_style_path(style) Посещения
         td
           - if style.lessons.size <= 0
             = link_to "x", style_path(style), method: :delete
