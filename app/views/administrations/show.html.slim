@@ -1,3 +1,6 @@
+- if current_user.administrator_user?
+  a href=new_user_registration_path Создать нового пользователя
+
 table.users-table border="1"
   thead
     tr
@@ -5,6 +8,7 @@ table.users-table border="1"
       th Роль
       - if current_user.administrator_user?
         th
+        th Удалить
   tbody
     - @users.each do |user|
       tr
@@ -12,8 +16,12 @@ table.users-table border="1"
         td
           = simple_form_for user, method: :put, url: administration_path, html: { class: 'user-roles' } do |f|
             = f.input :id, as: :hidden
-            = f.association :roles, as: :check_boxes, html5: true, input_html: { class: 'js-role-click' },
-                    collection: Role.order(:name), id_method: :id, label_method: :name, label: false
+            = f.association :roles, as: :check_boxes, html5: true,
+                    input_html: { class: 'js-role-click', index: f.object.id, name: 'user[role_ids][]' },
+                    collection: Role.order(:name), value_method: :id, label_method: :name, label: false
         - if current_user.administrator_user?
           td
             = link_to "Залогиниться как", masquerade_path(user)
+          td
+            - if user.lessons.count <= 0
+              = link_to 'Удалить пользователя', delete_user_registration_path(user), method: :delete, data: { confirm: 'Вы уверены?' }

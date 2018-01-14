@@ -1,5 +1,5 @@
 class AdministrationsController < ApplicationController
-  before_action :check_admin!
+  authorize! :admin
   before_action :init_user, only: [:update]
 
   def show
@@ -13,12 +13,8 @@ class AdministrationsController < ApplicationController
 
   private
 
-  def check_admin!
-    redirect_to :root unless current_user&.admin?
-  end
-
   def init_user
-    @user = User.find user_params[:id]
+    @user = User.find_by_id user_params[:id]
     redirect_to administration_path if @user.nil?
   end
 

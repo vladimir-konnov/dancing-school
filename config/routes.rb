@@ -3,6 +3,9 @@ Rails.application.routes.draw do
     #masquerades: 'admin/masquerades',
     registrations: 'users/registrations'
   }
+  devise_scope :user do
+    delete '/users/:id' => 'users/registrations#delete_user', as: :delete_user_registration
+  end
 
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html\
 

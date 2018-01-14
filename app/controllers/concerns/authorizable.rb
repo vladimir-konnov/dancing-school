@@ -28,14 +28,14 @@ module Concerns::Authorizable
   end
 
   module ClassMethods
-    def authorize!(role)
-      before_action do
+    def authorize!(role, options = {})
+      before_action options do
         raise NotAuthorized unless current_user&.has_role?(role)
       end
     end
 
-    def authorize_superadmin!
-      before_action do
+    def authorize_superadmin!(options = {})
+      before_action options do
         raise NotAuthorized unless current_user&.administrator_user?
       end
     end

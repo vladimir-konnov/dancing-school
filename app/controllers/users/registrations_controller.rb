@@ -1,4 +1,12 @@
+# frozen_string_literal: true
+
 class Users::RegistrationsController < Devise::RegistrationsController
+  authorize_superadmin! only: [:new, :create, :delete_user]
+  skip_before_action :require_no_authentication, only: %i[new create]
+  before_action only: %i[new create] do
+    redirect_to new_user_session_path unless user_signed_in?
+  end
+  before_action :authenticate_scope!, only: [:edit, :delete_user]
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
@@ -36,22 +44,33 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  def delete_user
+    @user = User.find_by_id params[:id]
+    @user.destroy if @user.present?
+    redirect_to administration_path
+  end
+
+  protected
+
+  def sign_up(resource_name, resource)
+    true
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:firstname, :lastname])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[firstname lastname])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:firstname, :middlename, :lastname, :banned, :comment])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[firstname middlename lastname banned comment])
   end
 
   # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  def after_sign_up_path_for(resource)
+    # super(resource)
+    administration_path
+  end
 
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
