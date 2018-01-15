@@ -21,7 +21,7 @@ table.styles.table.table-bordered
           - totals[date] += lessons[date] || 0
         td
           = totals[date]
-    - @lesson_student_matrix.keys.sort.each do |student|
+    - @lesson_student_matrix.keys.sort_by(&:official_name).each do |student|
       tr
         td
           span = student.official_name

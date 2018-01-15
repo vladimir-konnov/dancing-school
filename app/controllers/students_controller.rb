@@ -68,7 +68,7 @@ class StudentsController < ApplicationController
   def filter_student(query)
     query = "%#{query&.downcase}%"
     Student.where("(lower(firstname) || ' ' || lower(lastname) LIKE :q) OR (lower(lastname) || ' ' || lower(firstname) LIKE :q)",
-                  q: query).order(:firstname, :lastname)
+                  q: query).order(:lastname, :firstname)
   end
 
   def init_student
