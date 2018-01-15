@@ -1,7 +1,7 @@
 - students.each do |student|
   tr
     td
-      a href=edit_student_path(student) = student.name
+      a href=edit_student_path(student) = student.official_name
       br
       a href=visits_student_path(student) Посещения
     td

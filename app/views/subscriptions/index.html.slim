@@ -1,4 +1,5 @@
 h2 = t('header.subscriptions')
+h3 = @student.official_name
 
 = link_to t('buttons.add'), new_student_subscription_path(@student)
 
@@ -9,6 +10,7 @@ table border="1"
       th Осталось занятий
       th Куплен
       th Кончается
+      th Выдал
       th Удалить
   tbody
     - @subscriptions.each do |subscription|
@@ -21,6 +23,7 @@ table border="1"
           = subscription.number_of_lessons
         td = subscription.purchase_date
         td = subscription.expiry_date
+        td = subscription.user.name
         td
           - if subscription.lesson_students.count <= 0
             = link_to 'Удалить', student_subscription_path(@student, subscription), method: :delete

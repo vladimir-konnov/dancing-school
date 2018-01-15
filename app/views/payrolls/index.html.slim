@@ -24,7 +24,7 @@ table.payroll-table border="1"
                   tr
                     td
                       a href=edit_student_subscription_path(subscription.student, subscription) = subscription.name
-                    td = subscription.student.name
+                    td = subscription.student.official_name
                     td = number_to_currency subscription.price, locale: :ru
             ' Всего
             = number_to_currency subscriptions.map(&:price).sum, locale: :ru

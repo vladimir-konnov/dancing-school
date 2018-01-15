@@ -24,7 +24,7 @@ table.styles.table.table-bordered
     - @lesson_student_matrix.keys.sort.each do |student|
       tr
         td
-          span = student.name
+          span = student.official_name
           br
           span> = link_to 'Абонементы', student_subscriptions_path(student)
           - current_subscription = student.current_subscription

@@ -5,7 +5,7 @@ class SubscriptionsController < ApplicationController
   before_action :init_subscription, only: [:edit, :update, :destroy]
 
   def index
-    @subscriptions = @student.subscriptions
+    @subscriptions = @student.subscriptions.preload(:user, :lesson_students)
   end
 
   def new

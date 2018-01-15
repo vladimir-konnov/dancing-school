@@ -12,4 +12,8 @@ class Student < ApplicationRecord
   def name
     "#{firstname} #{lastname}"
   end
+
+  def official_name
+    "#{lastname} #{firstname}"
+  end
 end

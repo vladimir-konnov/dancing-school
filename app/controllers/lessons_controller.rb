@@ -38,7 +38,7 @@ class LessonsController < ApplicationController
   end
 
   def edit
-    @students = Student.all.order(:firstname, :lastname)
+    @students = Student.all.order(:lastname, :firstname)
   end
 
   def update

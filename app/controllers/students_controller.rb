@@ -41,7 +41,7 @@ class StudentsController < ApplicationController
     result = []
     if params[:q].present?
       filter_student(params[:q]).map do |student|
-        result << { value: student.id, label: "#{student.firstname} #{student.lastname}" }
+        result << { value: student.id, label: student.official_name }
       end
     end
     render json: result
