@@ -92,6 +92,6 @@ class SubscriptionsController < ApplicationController
   end
 
   def edit_subscription_params
-    params.require(:subscription).permit(:no_expiry, :expiry_date, :lessons_left)
+    params.require(:subscription).permit(:subscription_type_id, :no_expiry, :expiry_date, :lessons_left)
   end
 end

@@ -1,0 +1,21 @@
+' Абонемент
+strong> = subscription.name
+' дата покупки
+strong> = pretty_print_date subscription.purchase_date
+' действует
+- if subscription.no_expiry?
+  strong вечно
+- else
+  ' до
+  strong = pretty_print_date subscription.expiry_date
+
+table.table.subscription-details style="width: 500px"
+  thead
+    tr
+      th style="width: 150px" Дата
+      th Направление
+  tbody
+    - subscription.lessons.preload(:style).each do |lesson|
+      tr
+        td = pretty_print_date lesson.date
+        td = lesson.style.name

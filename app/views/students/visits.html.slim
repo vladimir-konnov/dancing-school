@@ -10,7 +10,7 @@ table.students.table.table-bordered
       td style="width: 150px; height:150px; vertical-align: middle" Направление\Дата
       - (@from..@to).each do |date|
         td.vertical-container class=('weekend' if weekend?(date))
-          p.vertical-text = date.strftime('%-d %b %Y')
+          p.vertical-text = pretty_print_date(date)
   tbody
     - @lesson_style_matrix.keys.sort.each do |style|
       tr
