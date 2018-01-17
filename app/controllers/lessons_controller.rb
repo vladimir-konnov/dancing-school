@@ -43,7 +43,7 @@ class LessonsController < ApplicationController
 
   def update
     if @lesson.update_attributes(lesson_params)
-      redirect_to edit_lesson_path(@lesson)
+      redirect_to lessons_path
     else
       render :edit
     end
