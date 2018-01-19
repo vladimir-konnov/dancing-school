@@ -4,7 +4,7 @@
   = select_tag :month, options, include_blank: false
   = submit_tag 'Фильтр'
 
-table.payroll-table border="1"
+table.table.payroll-table
   thead
     tr
       th Имя
@@ -14,17 +14,17 @@ table.payroll-table border="1"
     - @payroll.each_pair do |teacher, amount|
       tr
         td = teacher.name
-        td = number_to_currency amount
+        td = to_price amount
         td
           - subscriptions = @subscriptions[teacher]
           - if subscriptions.present?
-            table
+            table.table
               tbody
                 - subscriptions.each do |subscription|
                   tr
                     td
                       a href=edit_student_subscription_path(subscription.student, subscription) = subscription.name
                     td = subscription.student.official_name
-                    td = number_to_currency subscription.price, locale: :ru
+                    td = to_price subscription.price
             ' Всего
-            = number_to_currency subscriptions.map(&:price).sum, locale: :ru
+            = to_price subscriptions.map(&:price).sum

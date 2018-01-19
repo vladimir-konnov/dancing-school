@@ -3,7 +3,7 @@ javascript:
 
 h3 = t('header.students')
 
-table.students-list
+table.table.students-list
   thead
     tr
       th Имя
@@ -12,7 +12,7 @@ table.students-list
     = render 'lessons/students_list', lesson: lesson
 
 = text_field_tag :lesson_students, nil, id: 'students-lookup', size: 20
-= f.button :button, t('buttons.add'), id: 'add-btn', class: 'btn-secondary',
+= button_tag t('buttons.add'), type: :button, id: 'add-btn', class: 'btn-secondary',
         disabled: 'disabled', onClick: "addStudent(event, #{lesson.id}, currentStudentId); return false;"
 
 /= f.association :students, as: :check_boxes, html5: true, input_html: { class: 'form-control form-check-input' },

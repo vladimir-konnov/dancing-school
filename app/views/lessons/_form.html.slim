@@ -3,11 +3,6 @@ javascript:
 = simple_form_for lesson, method: http_method, validate: true, html: { class: 'lesson-form' } do |f|
   /= f.error_notification
 
-  - unless lesson.new_record?
-    = render 'lessons/students', lesson: lesson, f: f
-    br
-    br
-
   = f.association :style, as: :radio_buttons, html5: true, input_html: { class: 'js-style form-control form-check-input' },
           collection: Style.all.order(:name), label_method: :name, value_method: :id, include_blank: false,
           item_wrapper_class: 'form-check', item_wrapper_tag: 'div', required: true

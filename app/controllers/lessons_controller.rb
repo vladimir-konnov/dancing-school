@@ -1,7 +1,7 @@
 class LessonsController < ApplicationController
   authorize! :teacher
 
-  before_action :load_lesson, only: [:edit, :update, :destroy, :add_student, :remove_student]
+  before_action :load_lesson, only: [:edit, :update, :show, :destroy, :add_student, :remove_student]
 
   def index
     @from = Date.parse(params[:from]) rescue nil
@@ -38,15 +38,17 @@ class LessonsController < ApplicationController
   end
 
   def edit
-    @students = Student.all.order(:lastname, :firstname)
   end
 
   def update
     if @lesson.update_attributes(lesson_params)
-      redirect_to lessons_path
+      redirect_to lesson_path(@lesson)
     else
       render :edit
     end
+  end
+
+  def show
   end
 
   def destroy
@@ -78,6 +80,6 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:date, :style_id, teacher_ids: [], student_ids: [])
+    params.require(:lesson).permit(:date, :style_id, teacher_ids: [])
   end
 end
