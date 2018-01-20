@@ -2,7 +2,7 @@ a href=student_subscriptions_path(subscription.student) Назад к абоне
 br
 br
 = simple_form_for subscription, url: url, method: http_method, validate: true, html: {class: 'subscription-form'} do |f|
-  - if subscription.errors.present?
+  - if subscription.errors.present? && subscription.errors[:base].present?
     .form-group style="width: 500px;"
       = f.error :base, class: 'alert alert-danger'
   = f.association :subscription_type, label: 'Тип абонемента', as: :radio_buttons, html5: true,

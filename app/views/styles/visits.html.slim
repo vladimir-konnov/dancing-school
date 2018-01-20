@@ -4,22 +4,22 @@
   = submit_tag 'Фильтр'
 a href=styles_path Назад к направлениям
 
-table.styles.table.table-bordered
+table.table.table-bordered.styles
   thead
     tr
-      td style="width: 150px; height:150px; vertical-align: middle" Студент\Дата
-      - (@from..@to).each do |date|
-        td.vertical-container class=('weekend' if weekend?(date))
+      th style="width: 150px; height:150px; vertical-align: middle" Студент\Дата
+      - @days.each do |date|
+        th.vertical-container class=('weekend' if weekend?(date))
           p.vertical-text = pretty_print_date(date)
   tbody
     tr
       td Всего
       - totals = {}
-      - (@from..@to).each do |date|
+      - @days.each do |date|
         - @lesson_student_matrix.each_pair do |student, lessons|
           - totals[date] = 0 if totals[date].nil?
           - totals[date] += lessons[date] || 0
-        td
+        td.align-center
           = totals[date]
     - @lesson_student_matrix.keys.sort_by(&:official_name).each do |student|
       tr
@@ -28,11 +28,12 @@ table.styles.table.table-bordered
           br
           span> = link_to 'Абонементы', student_subscriptions_path(student)
           - current_subscription = student.current_subscription
+          br
           - if current_subscription.present?
             ' Осталось занятий
             span
               a href=edit_student_subscription_path(student, current_subscription) = current_subscription.lessons_left
-        - (@from..@to).each do |date|
+        - @days.each do |date|
           td.align-center
             - (@lesson_student_matrix[student][date] || 0).times do
               i.glyphicon.glyphicon-ok

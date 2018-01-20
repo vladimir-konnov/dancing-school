@@ -10,19 +10,23 @@ class Subscription < ApplicationRecord
 
   #accepts_nested_attributes_for :paired_subscription
 
-  validates_presence_of :name, :purchase_date, :price, :user_id, :number_of_lessons, :lesson_price
-  validates_presence_of :expiry_date, unless: :no_expiry?
+  validates_presence_of :name, :purchase_date, :price, :user, :number_of_lessons, :lesson_price,
+                        :student, :subscription_type
   validates_inclusion_of :no_expiry, in: [true, false]
+  validates_presence_of :expiry_date, unless: :no_expiry?
+  validates_numericality_of :number_of_lessons, greater_than: 0
   validate do |subscription|
     subscription.errors[:base] << ' Количество уроков меньше нуля' if subscription.lessons_left < 0
   end
-  validate if: -> { student.present? && purchase_date.present? } do |subscription|
+  validate if: -> { student.present? && subscription_type.present? && purchase_date.present? } do |subscription|
     exists = if subscription.no_expiry?
                student.subscriptions.where.not(id: subscription.id).exists?([
+                 #"expiry_date + interval '1 day' > ? OR no_expiry", subscription.purchase_date
                  'expiry_date > ? OR no_expiry', subscription.purchase_date
                ])
              else
                student.subscriptions.where.not(id: subscription.id).exists?([
+                 #"(expiry_date + INTERVAL '1 day' > ? OR no_expiry) AND purchase_date - INTERVAL '1 day' < ?",
                  '(expiry_date > ? OR no_expiry) AND purchase_date < ?',
                  subscription.purchase_date, subscription.expiry_date
                ])

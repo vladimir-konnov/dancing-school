@@ -5,7 +5,8 @@ class SubscriptionsController < ApplicationController
   before_action :init_subscription, only: [:edit, :update, :destroy]
 
   def index
-    @subscriptions = @student.subscriptions.preload(:user, :lesson_students)
+    @subscriptions = @student.subscriptions.order(purchase_date: :desc)
+                       .order('expiry_date DESC NULLS FIRST').preload(:user, :lesson_students)
   end
 
   def new
@@ -16,6 +17,7 @@ class SubscriptionsController < ApplicationController
   def create
     @subscription = current_user.subscriptions_created.build(subscription_params)
     @subscription.student = @student
+    @subscription.expiry_date = Time.zone.now.to_date
     construct_subscription
     if @subscription.save
       @subscription.update_missing_lessons

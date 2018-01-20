@@ -61,6 +61,10 @@ class StudentsController < ApplicationController
       lesson_style_dates[lesson.date] = 0 if lesson_style_dates[lesson.date].nil?
       lesson_style_dates[lesson.date] += 1
     end
+    # leaving only dates which have lessons
+    @days = (@from..@to).to_a.select do |date|
+      @lesson_style_matrix.detect { |(_, dates_hash)| dates_hash[date].present? }.present?
+    end
   end
 
   private

@@ -43,7 +43,7 @@ class StylesController < ApplicationController
     @to = Date.parse(params[:to]) rescue nil
     @to = @from + 1.month if @to.nil?
     @to = @from if @to < @from
-    @lessons = @style.lessons.where(date: (@from..@to)).order(:date).preload(:students)
+    @lessons = @style.lessons.where(date: @from..@to).order(:date).preload(:students)
     @lesson_student_matrix = {}
     @lessons.each do |lesson|
       lesson.students.each do |student|
@@ -52,6 +52,10 @@ class StylesController < ApplicationController
         lesson_student_dates[lesson.date] = 0 if lesson_student_dates[lesson.date].nil?
         lesson_student_dates[lesson.date] += 1
       end
+    end
+    # leaving only dates which have lessons
+    @days = (@from..@to).to_a.select do |date|
+      @lesson_student_matrix.detect { |(_, dates_hash)| dates_hash[date].present? }.present?
     end
   end
 

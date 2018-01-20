@@ -1,8 +1,9 @@
-table.students {
+table.students, table.styles {
   width: auto;
 }
-td.vertical-container {
+th.vertical-container {
   vertical-align: bottom;
+  width: 30px;
 
   &.weekend {
     background-color: #eee;

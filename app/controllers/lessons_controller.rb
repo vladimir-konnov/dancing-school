@@ -9,16 +9,16 @@ class LessonsController < ApplicationController
     @to = Date.parse(params[:to]) rescue nil
     @to = @from + 1.month + 2.weeks if @to.nil?
     @style_id = params[:style_id]
-    @lessons = Lesson.where('date BETWEEN ? AND ?', @from, @to).order(:date)
+    @lessons = Lesson.where('date BETWEEN ? AND ?', @from, @to).joins(:style).order(date: :desc).order('styles.name ASC')
     @lessons = @lessons.joins(:teachers).where('users.id': current_user) unless current_user.administrator_user?
     @lessons = @lessons.where(style_id: @style_id) if @style_id.present?
     @lessons_revenue = Hash[@lessons.joins(:subscriptions).select('SUM(lesson_price) as price, lessons.id')
-                         .group('lessons.id').map { |lesson| [lesson.id, lesson.price] }]
+                         .group('lessons.id, styles.name').map { |lesson| [lesson.id, lesson.price] }]
     @lesson_students = @lessons.joins(:lesson_students)
     @lesson_students_count = Hash[@lesson_students.select('COUNT(1) as count, lessons.id')
-                               .group('lessons.id').map { |lesson| [lesson.id, lesson.count] }]
+                               .group('lessons.id, styles.name').map { |lesson| [lesson.id, lesson.count] }]
     @without_subscription = @lesson_students.where('lessons_students.subscription_id': nil)
-                              .select('lessons.id').group('lessons.id').pluck(:id)
+                              .select('lessons.id').group('lessons.id, styles.name').pluck(:id)
     @lessons = @lessons.includes(:style, :teachers)
   end
 
