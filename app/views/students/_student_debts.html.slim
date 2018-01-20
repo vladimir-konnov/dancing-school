@@ -1,0 +1,16 @@
+h3 Должники
+
+table.table.students
+  thead
+    tr
+      th = t('students.table.columns.name')
+      th Дата - направление
+  tbody
+    - lesson_students.each_pair do |student, lessons|
+      tr
+        td = student.official_name
+        td
+          - lessons.each do |lesson|
+            => pretty_print_date lesson.date
+            ' -
+            = lesson.style.name

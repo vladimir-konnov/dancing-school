@@ -4,7 +4,13 @@ class StudentsController < ApplicationController
   before_action :init_student, only: %i(edit update visits)
 
   def index
-    @students = Student.all
+    @students = Student.order(:lastname, :firstname)
+    @lesson_student_debts = LessonStudent.where(subscription_id: nil).joins(:lesson, :student)
+                              .includes(:student, lesson: :style)
+                              .order('students.lastname, students.firstname, lessons.date DESC')
+    @lesson_student_debts = Hash[@lesson_student_debts.group_by(&:student).map do |student, lesson_students|
+      [student, lesson_students.map(&:lesson)]
+    end]
   end
 
   def new

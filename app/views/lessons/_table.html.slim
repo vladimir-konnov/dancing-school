@@ -9,7 +9,7 @@ table.table.lessons-table
     - lessons.each do |lesson|
       tr
         td
-          => lesson.date
+          => pretty_print_date lesson.date
           ' -
           = lesson.style.name
         td = lesson.teachers.map(&:name).join(', ')
