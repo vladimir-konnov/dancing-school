@@ -6,7 +6,7 @@ class SubscriptionsController < ApplicationController
 
   def index
     @subscriptions = @student.subscriptions.order(purchase_date: :desc)
-                       .order('expiry_date DESC NULLS FIRST').preload(:user, :lesson_students)
+                       .order('expiry_date DESC NULLS FIRST').preload(:creator, :lesson_students)
   end
 
   def new
@@ -65,7 +65,7 @@ class SubscriptionsController < ApplicationController
       #@subscription.price /= 2
       @subscription.paired_subscription.assign_attributes(
         name: @subscription.name,
-        user: @subscription.user,
+        creator: @subscription.creator,
         price: @subscription.price,
         subscription_type: @subscription.subscription_type,
         purchase_date: @subscription.purchase_date,
@@ -94,6 +94,6 @@ class SubscriptionsController < ApplicationController
   end
 
   def edit_subscription_params
-    params.require(:subscription).permit(:subscription_type_id, :no_expiry, :expiry_date, :lessons_left)
+    params.require(:subscription).permit(:subscription_type_id, :purchase_date, :no_expiry, :expiry_date, :lessons_left)
   end
 end

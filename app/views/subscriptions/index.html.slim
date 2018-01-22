@@ -23,7 +23,7 @@ table.table
           = subscription.number_of_lessons
         td = subscription.purchase_date
         td = subscription.expiry_date
-        td = subscription.user.name
+        td = subscription.creator.name
         td
           - if subscription.lesson_students.count <= 0
             = link_to 'Удалить', student_subscription_path(@student, subscription), method: :delete

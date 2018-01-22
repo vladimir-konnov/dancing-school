@@ -10,7 +10,7 @@ class PayrollsController < ApplicationController
     @months = Lesson.select(:date).group(:date).order(:date).map(&:date).map(&:beginning_of_month).uniq{|d| [d.month, d.year]}
     @payroll = PayrollsService.new(current_user, @date).payroll
     @subscriptions = Subscription.where(user_id: @payroll.keys.map(&:id), purchase_date: @date..@date.end_of_month)
-                       .order(:purchase_date).preload(:student)#.preload(:user)
-    @subscriptions = @subscriptions.group_by(&:user)
+                       .order(:purchase_date).preload(:student)#.preload(:creator)
+    @subscriptions = @subscriptions.group_by(&:creator)
   end
 end

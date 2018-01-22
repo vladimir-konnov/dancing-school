@@ -6,7 +6,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable, :masqueradable
-  has_many :subscriptions_created, class_name: 'Subscription', inverse_of: :user
+  has_many :subscriptions_created, class_name: 'Subscription', inverse_of: :creator
   has_and_belongs_to_many :roles, class_name: 'Role', inverse_of: :users, join_table: :users_roles
   has_and_belongs_to_many :lessons, inverse_of: :teachers, foreign_key: :user_id
   has_and_belongs_to_many :styles, class_name: 'Style', inverse_of: :teachers

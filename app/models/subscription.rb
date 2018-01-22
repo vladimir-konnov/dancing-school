@@ -1,5 +1,5 @@
 class Subscription < ApplicationRecord
-  belongs_to :user, required: true, class_name: 'User', inverse_of: :subscriptions_created
+  belongs_to :creator, required: true, class_name: 'User', inverse_of: :subscriptions_created, foreign_key: :user_id
   belongs_to :subscription_type, required: true, inverse_of: :subscriptions
   belongs_to :student, required: true, class_name: 'Student', inverse_of: :subscriptions
   #belongs_to :paired_with, required: false, class_name: 'Subscription', inverse_of: :paired_subscription
@@ -10,7 +10,7 @@ class Subscription < ApplicationRecord
 
   #accepts_nested_attributes_for :paired_subscription
 
-  validates_presence_of :name, :purchase_date, :price, :user, :number_of_lessons, :lesson_price,
+  validates_presence_of :name, :purchase_date, :price, :creator, :number_of_lessons, :lesson_price,
                         :student, :subscription_type
   validates_inclusion_of :no_expiry, in: [true, false]
   validates_presence_of :expiry_date, unless: :no_expiry?
