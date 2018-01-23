@@ -15,7 +15,7 @@ table.table.subscription-details style="width: 500px"
       th style="width: 150px" Дата
       th Направление
   tbody
-    - subscription.lessons.preload(:style).each do |lesson|
+    - subscription.lessons.order(:date).preload(:style).each do |lesson|
       tr
         td = pretty_print_date lesson.date
         td = lesson.style.name
