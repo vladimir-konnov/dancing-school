@@ -9,7 +9,7 @@ class Lesson < ApplicationRecord
 
   def add_student(student)
     unless lesson_students.exists?(student: student)
-      lesson_students.create(student: student, subscription: student.current_subscription)
+      lesson_students.create(student: student, subscription: student.subscription_for_date(date))
     end
   end
 

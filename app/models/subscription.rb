@@ -34,11 +34,13 @@ class Subscription < ApplicationRecord
     subscription.errors[:base] << 'Абонемент пересекается с другими абонементами' if exists
   end
 
-  scope :active, -> {
-    where('purchase_date <= :date AND (no_expiry OR expiry_date >= :date)', date: Time.zone.now.to_date)
+  scope :active_for_date, -> (date) {
+    where('purchase_date <= :date AND (no_expiry OR expiry_date >= :date)', date: date)
       .where("number_of_lessons > (#{LessonStudent.where('subscription_id = subscriptions.id').select('COUNT(1)').to_sql})")
       .order(purchase_date: :asc)
   }
+
+  scope :active, -> { active_for_date(Time.zone.now.to_date) }
 
   def lessons_left
     number_of_lessons - lessons_visited
