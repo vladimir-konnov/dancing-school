@@ -1,10 +1,28 @@
+- sum = 0
 - lesson.lesson_students.preload(:student).sort_by{ |ls| ls.student.official_name }.each do |lesson_student|
   - student = lesson_student.student
+  - subscription = lesson_student.subscription
   tr
     td
       => student.official_name
       = link_to 'Посещения', visits_student_path(student)
-      - if lesson_student.subscription_id.nil?
+    td
+      - if subscription.nil?
         br
         span.without-subscription Без абонемента
+      - else
+        = lesson_student.subscription.name
+        ', куплен
+        = pretty_print_date(lesson_student.subscription.purchase_date)
+    td
+      - if subscription.present?
+        - lesson_price = lesson_student.subscription.lesson_price * PayrollsService.salary_percent
+        - sum += lesson_price
+        = to_price lesson_price
     td = link_to t('buttons.remove'), '#', onClick: "removeStudent(#{lesson.id}, #{student.id}); return false;"
+tr
+  td
+  td align="right"
+    strong Всего
+  td = to_price sum
+  td

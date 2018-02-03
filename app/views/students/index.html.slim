@@ -1,7 +1,11 @@
 - if @lesson_student_debts.present?
   = render 'students/student_debts', lesson_students: @lesson_student_debts
 
-h2 = t('header.students')
+h2
+  => t('header.students')
+  ' (всего:
+  => @students.count
+  ' шт)
 = link_to t('buttons.add'), new_student_path
 
 .search

@@ -10,11 +10,11 @@ ru:
     lessons: Занятия
     students: Ученики
     subscriptions: Абонементы
-    subscription_types: Типы абонементов
+    subscription_types: Абонементы
     styles: Направления
-    administration: Администрация
-    payrolls: Зарплаты
-    account: Аккаунт
+    administration: Админы
+    payrolls: Расчёты
+    account: Личный кабинет
     help: Справка
     logout: Выход
   buttons:

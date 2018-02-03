@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   root to: 'root#index'
 
-  get '/help' => 'root#help', as: :help
+  #get '/help' => 'root#help', as: :help
 
   resource :administration
 

@@ -4,6 +4,8 @@ class RootController < ApplicationController
   def index
   end
 
+=begin
   def help
   end
+=end
 end

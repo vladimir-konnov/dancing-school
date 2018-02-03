@@ -23,7 +23,7 @@ nav.navbar.fixed-top.navbar-expand-lg.navbar-light.bg-light
             a.nav-link href=payrolls_path = t('header.payrolls')
         li.nav-item class="#{[controller_name == 'users' ? :active : nil].compact.join(' ')}"
           a.nav-link href=edit_user_registration_path = t('header.account')
-        li.nav-item class="#{[controller_name == 'help' ? :active : nil].compact.join(' ')}"
+        /li.nav-item class="#{[controller_name == 'help' ? :active : nil].compact.join(' ')}"
           a.nav-link href=help_path = t('header.help')
         li.nav-item
           = link_to t('header.logout'), destroy_user_session_path, class: 'nav-link', method: :delete
