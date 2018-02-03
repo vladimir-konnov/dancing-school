@@ -8,7 +8,6 @@
       = link_to 'Посещения', visits_student_path(student)
     td
       - if subscription.nil?
-        br
         span.without-subscription Без абонемента
       - else
         = lesson_student.subscription.name
