@@ -13,7 +13,9 @@ class LessonsController < ApplicationController
     @lessons = @lessons.joins(:teachers).where('users.id': current_user) unless current_user.administrator_user?
     @lessons = @lessons.where(style_id: @style_id) if @style_id.present?
     @lessons_revenue = Hash[@lessons.joins(:subscriptions).select('SUM(lesson_price) as price, lessons.id')
-                         .group('lessons.id, styles.name').map { |lesson| [lesson.id, lesson.price] }]
+                         .group('lessons.id, styles.name').map { |lesson|
+      [lesson.id, lesson.price * PayrollsService.salary_percent]
+    }]
     @lesson_students = @lessons.joins(:lesson_students)
     @lesson_students_count = Hash[@lesson_students.select('COUNT(1) as count, lessons.id')
                                .group('lessons.id, styles.name').map { |lesson| [lesson.id, lesson.count] }]

@@ -18,4 +18,4 @@ table.table.lessons-table
           - if without_subscription.include?(lesson.id)
             br
             span.without-subscription Без абонемента
-        td = to_price (lessons_revenue[lesson.id] || 0) * PayrollsService.salary_percent
+        td = to_price lessons_revenue[lesson.id] || 0

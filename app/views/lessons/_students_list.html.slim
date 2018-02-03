@@ -10,12 +10,12 @@
       - if subscription.nil?
         span.without-subscription Без абонемента
       - else
-        = lesson_student.subscription.name
+        a href=edit_student_subscription_path(student, subscription) = subscription.name
         ', куплен
-        = pretty_print_date(lesson_student.subscription.purchase_date)
+        = pretty_print_date(subscription.purchase_date)
     td
       - if subscription.present?
-        - lesson_price = lesson_student.subscription.lesson_price * PayrollsService.salary_percent
+        - lesson_price = subscription.lesson_price * PayrollsService.salary_percent
         - sum += lesson_price
         = to_price lesson_price
     td = link_to t('buttons.remove'), '#', onClick: "removeStudent(#{lesson.id}, #{student.id}); return false;"
