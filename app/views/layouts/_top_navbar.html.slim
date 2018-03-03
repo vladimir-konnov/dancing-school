@@ -11,11 +11,11 @@ nav.navbar.fixed-top.navbar-expand-lg.navbar-light.bg-light
             a.nav-link href=lessons_path = t('header.lessons')
           li.nav-item class="#{[controller_name == 'students' ? :active : nil].compact.join(' ')}"
             a.nav-link href=students_path = t('header.students')
+          li.nav-item class="#{[controller_name == 'styles' ? :active : nil].compact.join(' ')}"
+            a.nav-link href=styles_path = t('header.styles')
         - if current_user.admin?
           li.nav-item class="#{[controller_name == 'subscription_types' ? :active : nil].compact.join(' ')}"
             a.nav-link href=subscription_types_path = t('header.subscription_types')
-          li.nav-item class="#{[controller_name == 'styles' ? :active : nil].compact.join(' ')}"
-            a.nav-link href=styles_path = t('header.styles')
           li.nav-item class="#{[controller_name == 'administrations' ? :active : nil].compact.join(' ')}"
             a.nav-link href=administration_path = t('header.administration')
         - if current_user.teacher?
