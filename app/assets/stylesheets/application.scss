@@ -24,6 +24,22 @@
 @import 'subscription';
 @import 'students';
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
 .main {
   padding-left: 60px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
 }
