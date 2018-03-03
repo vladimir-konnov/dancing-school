@@ -45,9 +45,20 @@ class StudentsController < ApplicationController
 
   def autocomplete
     result = []
-    if params[:q].present?
-      filter_student(params[:q]).map do |student|
-        result << { value: student.id, label: student.official_name }
+    date = Date.iso8601(params[:date]) rescue nil
+    if params[:q].present? && date.present?
+      filter_student(params[:q]).each do |student|
+        subscriptions = student.subscriptions_for_date(date)
+        if subscriptions.present?
+          subscriptions.each do |subscription|
+            result << {
+              value: [student.id, subscription.id].join('_'),
+              label: "#{student.official_name} (#{subscription.name} - #{pretty_print_date(subscription.purchase_date)}, осталось: #{subscription.lessons_left})"
+            }
+          end
+        else
+          result << { value: student.id, label: student.official_name }
+        end
       end
     end
     render json: result

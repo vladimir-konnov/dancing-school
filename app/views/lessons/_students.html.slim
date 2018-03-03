@@ -1,7 +1,12 @@
 javascript:
   var currentStudentId = null;
+  var lessonDate = "#{lesson.date.iso8601}";
 
 h3 = t('header.students')
+
+h6
+  => lesson.style.name
+  = pretty_print_date(lesson.date)
 
 table.table.students-list
   thead

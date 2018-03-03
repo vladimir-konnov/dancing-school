@@ -57,9 +57,12 @@ class LessonsController < ApplicationController
   end
 
   def add_student
-    student = Student.find(params[:student_id])
-    return render json: { error: 'Wrong student_id' }, status: 422 if student.nil?
-    @lesson.add_student student
+    if params[:student_id].present?
+      student_id, subscription_id = params[:student_id].split('_')
+      student = Student.find(student_id)
+      return render json: { error: 'Wrong student_id' }, status: 422 if student.nil?
+      @lesson.add_student student, student.subscriptions.where(id: subscription_id).first
+    end
     render partial: 'lessons/students_list', locals: { lesson: @lesson }
   end
 

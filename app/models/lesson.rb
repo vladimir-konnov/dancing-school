@@ -7,9 +7,9 @@ class Lesson < ApplicationRecord
 
   validates_presence_of :date, :teachers
 
-  def add_student(student)
+  def add_student(student, subscription)
     unless lesson_students.exists?(student: student)
-      lesson_students.create(student: student, subscription: student.subscription_for_date(date))
+      lesson_students.create(student: student, subscription: subscription)
       #lesson_students.create(student: student, subscription: student.subscription_for_date(date) || student.current_subscription)
     end
   end

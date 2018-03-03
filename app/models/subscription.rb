@@ -18,21 +18,21 @@ class Subscription < ApplicationRecord
   validate do |subscription|
     subscription.errors[:base] << ' Количество уроков меньше нуля' if subscription.lessons_left < 0
   end
-  validate if: -> { student.present? && subscription_type.present? && purchase_date.present? } do |subscription|
-    exists = if subscription.no_expiry?
-               student.subscriptions.where.not(id: subscription.id).exists?([
-                 #"expiry_date + interval '1 day' > ? OR no_expiry", subscription.purchase_date
-                 'expiry_date > ? OR no_expiry', subscription.purchase_date
-               ])
-             else
-               student.subscriptions.where.not(id: subscription.id).exists?([
-                 #"(expiry_date + INTERVAL '1 day' > ? OR no_expiry) AND purchase_date - INTERVAL '1 day' < ?",
-                 '(expiry_date > ? OR no_expiry) AND purchase_date < ?',
-                 subscription.purchase_date, subscription.expiry_date
-               ])
-             end
-    subscription.errors[:base] << 'Абонемент пересекается с другими абонементами' if exists
-  end
+  #validate if: -> { student.present? && subscription_type.present? && purchase_date.present? } do |subscription|
+  #  exists = if subscription.no_expiry?
+  #             student.subscriptions.where.not(id: subscription.id).exists?([
+  #               #"expiry_date + interval '1 day' > ? OR no_expiry", subscription.purchase_date
+  #               'expiry_date > ? OR no_expiry', subscription.purchase_date
+  #             ])
+  #           else
+  #             student.subscriptions.where.not(id: subscription.id).exists?([
+  #               #"(expiry_date + INTERVAL '1 day' > ? OR no_expiry) AND purchase_date - INTERVAL '1 day' < ?",
+  #               '(expiry_date > ? OR no_expiry) AND purchase_date < ?',
+  #               subscription.purchase_date, subscription.expiry_date
+  #             ])
+  #           end
+  #  subscription.errors[:base] << 'Абонемент пересекается с другими абонементами' if exists
+  #end
 
   scope :active_for_date, -> (date) {
     where('purchase_date <= :date AND (no_expiry OR expiry_date >= :date)', date: date)

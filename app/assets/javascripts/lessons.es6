@@ -16,7 +16,7 @@ document.addEventListener('turbolinks:load', () => {
     source: (query, processSync, processAsync) => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
-        return $.get('/students/autocomplete', { q: query }, (response) => {
+        return $.get('/students/autocomplete', { q: query, date: lessonDate }, (response) => {
           return processAsync(response);
         });
       }, 300)
@@ -30,6 +30,7 @@ function addStudent(event, lessonId, studentId) {
   if (!event.target.disabled) {
     $.post('/lessons/' + lessonId + '/add_student', { student_id: studentId }, (response) => {
       $('.students-list tbody').html(response);
+      $('#add-btn').prop('disabled', 'disabled');
     });
     $('#students-lookup').val('')
   }
