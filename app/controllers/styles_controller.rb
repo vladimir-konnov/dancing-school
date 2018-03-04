@@ -1,5 +1,6 @@
 class StylesController < ApplicationController
-  authorize! :teacher
+  authorize_teacher! only: %i[index visits]
+  authorize! :admin, except: %i[index visits]
 
   before_action :init_style, only: %i[edit update destroy visits]
 

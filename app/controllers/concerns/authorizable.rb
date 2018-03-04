@@ -34,6 +34,12 @@ module Concerns::Authorizable
       end
     end
 
+    def authorize_teacher!(options = {})
+      before_action options do
+        raise NotAuthorized unless teacher?
+      end
+    end
+
     def authorize_superadmin!(options = {})
       before_action options do
         raise NotAuthorized unless current_user&.administrator_user?
