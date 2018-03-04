@@ -1,3 +1,7 @@
+- if @overdue_subscriptions.present?
+  h2 Просроченные абонементы
+  = render 'students/overdue_subscriptions', subscriptions: @overdue_subscriptions
+
 - if @lesson_student_debts.present?
   = render 'students/student_debts', lesson_students: @lesson_student_debts
 

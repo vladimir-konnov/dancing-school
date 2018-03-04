@@ -3,27 +3,4 @@ h3 = @student.official_name
 
 = link_to t('buttons.add'), new_student_subscription_path(@student)
 
-table.table
-  thead
-    tr
-      th Название
-      th Осталось занятий
-      th Куплен
-      th Кончается
-      th Выдал
-      th Удалить
-  tbody
-    - @subscriptions.each do |subscription|
-      tr
-        td
-          a href=edit_student_subscription_path(@student, subscription) = subscription.name
-        td
-          =>  subscription.lessons_left
-          ' /
-          = subscription.number_of_lessons
-        td = subscription.purchase_date
-        td = subscription.expiry_date
-        td = subscription.creator.name
-        td
-          - if subscription.lesson_students.count <= 0
-            = link_to 'Удалить', student_subscription_path(@student, subscription), method: :delete
+= render 'subscriptions/subscriptions_table', subscriptions: @subscriptions, student: @student, edit: true
