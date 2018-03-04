@@ -11,6 +11,7 @@ class StudentsController < ApplicationController
     @lesson_student_debts = Hash[@lesson_student_debts.group_by(&:student).map do |student, lesson_students|
       [student, lesson_students.map(&:lesson)]
     end]
+    @overdue_subscriptions = Subscription.overdue.preload(:student)
   end
 
   def new

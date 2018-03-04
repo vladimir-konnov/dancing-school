@@ -1,0 +1,27 @@
+table.table
+  thead
+    tr
+      th Название
+      th Осталось занятий
+      th Куплен
+      th Кончается
+      th Выдал
+      - if edit
+        th Удалить
+  tbody
+    - subscriptions.each do |subscription|
+      - current_student = student || subscription.student
+      tr
+        td
+          a href=edit_student_subscription_path(current_student, subscription) = subscription.name
+        td
+          =>  subscription.lessons_left
+          ' /
+          = subscription.number_of_lessons
+        td = subscription.purchase_date
+        td = subscription.expiry_date
+        td = subscription.creator.name
+        - if edit
+          td
+            - if subscription.lesson_students.count <= 0
+              = link_to 'Удалить', student_subscription_path(current_student, subscription), method: :delete

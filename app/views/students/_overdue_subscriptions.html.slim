@@ -1,0 +1,8 @@
+javascript:
+  showOverdueSubscriptions = function () {
+    $('#show-overdue-subscriptions').hide();
+    $('#overdue-subscriptions').show();
+  };
+a#show-overdue-subscriptions href="javascript:showOverdueSubscriptions()" Показать просроченные абонементы
+#overdue-subscriptions style="display: none"
+  = render 'subscriptions/subscriptions_table', subscriptions: subscriptions, student: nil, edit: false
