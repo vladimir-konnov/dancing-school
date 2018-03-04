@@ -23,4 +23,16 @@ class Lesson < ApplicationRecord
   def revenue
     subscriptions.pluck(:lesson_price).sum
   end
+
+  def clone_lesson
+    lesson = Lesson.new(style: style, date: date)
+    teachers.each { |teacher| lesson.teachers << teacher }
+    lesson.save
+    lesson_students.each do |lesson_student|
+      subscription = lesson_student.subscription
+      subscription = nil if subscription.present? && subscription.lessons_left <= 0
+      lesson.add_student(lesson_student.student, subscription)
+    end
+    lesson
+  end
 end

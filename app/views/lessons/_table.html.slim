@@ -11,7 +11,8 @@ table.table.lessons-table
         td
           => pretty_print_date lesson.date
           ' -
-          = lesson.style.name
+          => lesson.style.name
+          = link_to 'Клонировать', clone_lesson_path(lesson), method: :post
         td = lesson.teachers.map(&:name).join(', ')
         td
           a href=lesson_path(lesson) = lesson_students_count[lesson.id] || 0

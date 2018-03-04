@@ -1,7 +1,7 @@
 class LessonsController < ApplicationController
   authorize! :teacher
 
-  before_action :load_lesson, only: [:edit, :update, :show, :destroy, :add_student, :remove_student]
+  before_action :load_lesson, only: [:edit, :update, :show, :destroy, :clone_lesson, :add_student, :remove_student]
 
   def index
     @from = Date.parse(params[:from]) rescue nil
@@ -54,6 +54,11 @@ class LessonsController < ApplicationController
   end
 
   def destroy
+  end
+
+  def clone_lesson
+    @lesson.clone_lesson
+    redirect_to request.referer
   end
 
   def add_student

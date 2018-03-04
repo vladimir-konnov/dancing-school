@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     get :visits, on: :member
   end
   resources :lessons do
+    post :clone, action: :clone_lesson, on: :member
     post :add_student, on: :member
     delete 'remove_student/:student_id', action: :remove_student, on: :member, as: :remove_student
   end
