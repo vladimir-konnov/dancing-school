@@ -5,7 +5,11 @@ class StylesController < ApplicationController
   before_action :init_style, only: %i[edit update destroy visits]
 
   def index
-    @styles = Style.all
+    @styles = if current_user.admin? || current_user.administrator_user?
+      Style.all
+    else
+      current_user.styles
+    end
   end
 
   def new
