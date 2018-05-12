@@ -11,6 +11,7 @@ table.table.table-bordered.styles
       - @days.each do |date|
         th.vertical-container class=('weekend' if weekend?(date))
           p.vertical-text = pretty_print_date(date)
+      th style="vertical-align: middle" Итого
   tbody
     tr
       td Всего
@@ -21,6 +22,7 @@ table.table.table-bordered.styles
           - totals[date] += lessons[date] || 0
         td.align-center
           = totals[date]
+      td
     - @lesson_student_matrix.keys.sort_by(&:official_name).each do |student|
       tr
         td
@@ -33,7 +35,12 @@ table.table.table-bordered.styles
             ' Осталось занятий
             span
               a href=edit_student_subscription_path(student, current_subscription) = current_subscription.lessons_left
+        - row_total = 0
         - @days.each do |date|
           td.align-center
             - (@lesson_student_matrix[student][date] || 0).times do
               i.glyphicon.glyphicon-ok
+            - row_total += (@lesson_student_matrix[student][date] || 0) > 0 ? 1 : 0
+        td.align-center
+          - if row_total > 0
+            = row_total
