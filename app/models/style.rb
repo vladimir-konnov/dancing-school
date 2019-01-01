@@ -5,4 +5,12 @@ class Style < ApplicationRecord
   validates_presence_of :name, :duration_hours
   validates_uniqueness_of :name
   validates_inclusion_of :calculate_payrolls, in: [true, false]
+
+  scope :hidden, -> { where(visible: false) }
+  scope :visible, -> { where(visible: true) }
+
+  def toggle_visible
+    update visible: !visible
+    visible
+  end
 end
