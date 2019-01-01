@@ -1,16 +1,16 @@
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include? '/'
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.5.1'
+ruby '2.6.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 5.2.2'
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 1.0.0'
+gem 'pg', '~> 1.1.3'
 # Use Puma as the app server
 gem 'puma', '~> 3.12'
 # Use SCSS for stylesheets
@@ -33,7 +33,7 @@ gem 'turbolinks', '~> 5'
 gem 'sprockets-es6'
 
 gem 'slim'
-gem 'bootstrap', '~> 4.0'
+gem 'bootstrap', '~> 4.2'
 gem 'twitter-typeahead-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
