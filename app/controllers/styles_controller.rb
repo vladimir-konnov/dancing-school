@@ -2,13 +2,13 @@ class StylesController < ApplicationController
   authorize_teacher! only: %i[index visits]
   authorize! :admin, except: %i[index visits]
 
-  before_action :init_style, only: %i[edit update destroy visits toggle_visible]
+  before_action :init_style, only: %i[edit update destroy visits]
 
   def index
     @styles = if current_user.admin? || current_user.administrator_user?
-      Style.all.order(:name)
+      Style.all
     else
-      current_user.styles.order(:name)
+      current_user.styles
     end
   end
 
@@ -62,10 +62,6 @@ class StylesController < ApplicationController
     @days = (@from..@to).to_a.select do |date|
       @lesson_student_matrix.detect { |(_, dates_hash)| dates_hash[date].present? }.present?
     end
-  end
-
-  def toggle_visible
-    render json: { visible: @style.toggle_visible }
   end
 
   private
