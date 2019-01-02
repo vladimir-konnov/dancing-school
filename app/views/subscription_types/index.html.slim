@@ -6,12 +6,19 @@ table.table.subscription-types
   thead
     tr
       th Название
+      - if current_user.administrator_user?
+        th Показывать абонемент
       th Удалить
   tbody
     - @subscription_types.each do |subscription_type|
       tr
         td
           a href=edit_subscription_type_path(subscription_type) = subscription_type.name
+        - if current_user.administrator_user?
+          td
+            = check_box_tag '', subscription_type.visible?, subscription_type.visible?,
+                    id: "subscription_type_#{subscription_type.id}",
+                    onclick: "javascript:toggleSubscriptionTypeVisible(#{subscription_type.id})"
         td
           - if subscription_type.subscriptions.size <= 0
             = link_to "x", subscription_type_path(subscription_type), method: :delete

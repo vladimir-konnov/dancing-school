@@ -1,10 +1,10 @@
 class SubscriptionTypesController < ApplicationController
   authorize! :admin
 
-  before_action :init_subscription_type, only: %i[edit update destroy]
+  before_action :init_subscription_type, only: %i[edit update destroy toggle_visible]
 
   def index
-    @subscription_types = SubscriptionType.all.preload(:subscriptions)
+    @subscription_types = SubscriptionType.visible_for_user(current_user).preload(:subscriptions)
   end
 
   def new
@@ -35,6 +35,11 @@ class SubscriptionTypesController < ApplicationController
   def destroy
     @subscription_type.destroy if @subscription_type.subscriptions.length <= 0
     redirect_to subscription_types_path
+  end
+
+  def toggle_visible
+    @subscription_type.update(visible: !@subscription_type.visible)
+    render json: { visible: @subscription_type.visible }
   end
 
   private

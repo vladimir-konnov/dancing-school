@@ -37,4 +37,8 @@ class User < ApplicationRecord
   def administrator_user?
     email == ADMIN_USER_EMAIL
   end
+
+  def self.superadmin
+    User.where(email: ADMIN_USER_EMAIL).first
+  end
 end
