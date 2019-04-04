@@ -33,7 +33,7 @@ gem 'turbolinks', '~> 5'
 gem 'sprockets-es6'
 
 gem 'slim'
-gem 'bootstrap', '~> 4.2'
+gem 'bootstrap', '~> 4.3'
 gem 'twitter-typeahead-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
