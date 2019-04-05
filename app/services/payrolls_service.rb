@@ -9,7 +9,7 @@ class PayrollsService
   def payroll
     start_date = @date.beginning_of_month
     end_date = @date.end_of_month
-    lessons = Lesson.where('date > ? and date <= ?', start_date, end_date)
+    lessons = Lesson.where('date >= ? and date <= ?', start_date, end_date)
                 .joins(:style).where(styles: { calculate_payrolls: true }).preload(:teachers)
     lessons = lessons.joins(:teachers).where('users.id': @user) unless @user.administrator_user?
     teachers = lessons.map(&:teachers).flatten.uniq
