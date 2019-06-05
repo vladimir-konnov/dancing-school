@@ -1,0 +1,14 @@
+= render 'statistics/filter', from: @from, to: @to
+
+table.table.statistics-table
+  thead
+    tr
+      th Дата
+      th Всего уникальных посещений
+  tbody
+    - @students.each do |(date, count)|
+      tr
+        td
+          = l(date, format: :month)
+        td
+          = count

@@ -19,6 +19,9 @@ nav.navbar.fixed-top.navbar-expand-lg.navbar-light.bg-light
             a.nav-link href=subscription_types_path = t('header.subscription_types')
           li.nav-item class="#{[controller_name == 'administrations' ? :active : nil].compact.join(' ')}"
             a.nav-link href=administration_path = t('header.administration')
+        - if current_user.administrator_user?
+          li.nav-item class="#{[controller_name == 'statistics' ? :active : nil].compact.join(' ')}"
+            a.nav-link href=statistics_path = t('header.students_density')
         - if current_user.teacher?
           li.nav-item class="#{[controller_name == 'payrolls' ? :active : nil].compact.join(' ')}"
             a.nav-link href=payrolls_path = t('header.payrolls')

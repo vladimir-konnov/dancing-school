@@ -1,0 +1,4 @@
+= form_tag statistics_path, method: :get do
+  = date_field_tag :from, from
+  = date_field_tag :to, to
+  = submit_tag 'Фильтр'

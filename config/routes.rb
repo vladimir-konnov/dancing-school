@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
   resource :administration
 
+  resource :statistics, only: [:show]
+
   resources :styles do
     get :visits, on: :member
   end
