@@ -1,0 +1,14 @@
+h5 Активные вездеходы
+
+table.table.students-visits-table
+  thead
+    tr
+      th Студент
+      th Посещений за период
+  tbody
+    - students_visits.each do |(student, visits_count)|
+      tr
+        td
+          = student.official_name
+        td
+          = visits_count

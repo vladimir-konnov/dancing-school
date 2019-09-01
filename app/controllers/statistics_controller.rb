@@ -5,6 +5,7 @@ class StatisticsController < ApplicationController
 
   def show
     @students = StudentsDensityService.new(current_user).density_per_period(@from, @to)
+    @students_visits = StudentVisitsService.visits_per_period(@from, @to)
   end
 
   private
