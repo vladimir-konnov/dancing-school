@@ -20,9 +20,9 @@ table.table.missed-lessons-table
       tr
         td
           = subscription.name
-          '(
+          |(
           = subscription.student.official_name
-          ')
+          |)
         td
           = pretty_print_date subscription.expiry_date
         td
