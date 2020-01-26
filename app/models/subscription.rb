@@ -42,8 +42,9 @@ class Subscription < ApplicationRecord
 
   scope :active, -> { active_for_date(Time.zone.now.to_date) }
 
-  scope :overdue, -> {
-    where('NOT no_expiry AND expiry_date < ?', Date.today).
+  scope :overdue, -> (expiry_date = nil) {
+    expiry_date ||= Date.today
+    where('NOT no_expiry AND expiry_date < ?', expiry_date).
       where("number_of_lessons - (#{LessonStudent.select('COUNT(*)').where('subscription_id = subscriptions.id and student_id = subscriptions.student_id').to_sql}) > 0").
       order(purchase_date: :desc)
   }

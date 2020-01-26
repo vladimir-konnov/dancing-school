@@ -1,0 +1,37 @@
+h5
+  ' Остатки
+  sup title='сладки!' ?
+
+- total = 0
+table.table.missed-lessons-table
+  thead
+    tr
+      th Абонемент
+      th Закончился
+      th Выдал
+      th Left
+      th Price
+      th Сумма остатка
+  tbody
+    - missed_lessons.each do |subscription|
+      - lessons_left = subscription.lessons_left
+      - lessons_price = subscription.price / subscription.number_of_lessons * lessons_left
+      - total += lessons_price
+      tr
+        td
+          = subscription.name
+          '(
+          = subscription.student.official_name
+          ')
+        td
+          = pretty_print_date subscription.expiry_date
+        td
+          = subscription.creator.name
+        td
+          = lessons_left
+        td
+          = subscription.price
+        td
+          = lessons_price
+' Итого (остатков сладких):
+= total

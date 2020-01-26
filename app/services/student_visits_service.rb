@@ -10,4 +10,8 @@ class StudentVisitsService
     students = Hash[Student.where(id: result.keys).map { |s| [s.id, s] }]
     Hash[result.map { |sid, visits| [students[sid], visits] }]
   end
+
+  def self.missed_lessons(from, to)
+    Subscription.overdue(to).where('expiry_date >= ?', from).preload(lesson_students: :student)
+  end
 end
