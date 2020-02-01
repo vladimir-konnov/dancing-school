@@ -15,7 +15,7 @@ table.table.missed-lessons-table
   tbody
     - missed_lessons.each do |subscription|
       - lessons_left = subscription.lessons_left
-      - lessons_price = subscription.price / subscription.number_of_lessons * lessons_left
+      - lessons_price = (subscription.price / subscription.number_of_lessons * lessons_left).round(2)
       - total += lessons_price
       tr
         td

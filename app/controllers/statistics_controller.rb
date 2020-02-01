@@ -1,5 +1,5 @@
 class StatisticsController < ApplicationController
-  authorize_superadmin!
+  authorize! :admin
 
   before_action :init_dates
 
