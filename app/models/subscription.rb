@@ -34,9 +34,11 @@ class Subscription < ApplicationRecord
   #  subscription.errors[:base] << 'Абонемент пересекается с другими абонементами' if exists
   #end
 
-  scope :active_for_date, -> (date) {
+  scope :active_for_date, -> (date, is_party = false) {
     where('purchase_date <= :date AND (no_expiry OR expiry_date >= :date)', date: date)
-      .where("number_of_lessons > (#{LessonStudent.where('subscription_id = subscriptions.id').select('COUNT(1)').to_sql})")
+      .joins(:subscription_type)
+      .where("subscription_types.party_practice = :is_party", is_party: is_party)
+      .where("subscriptions.number_of_lessons > (#{LessonStudent.where('subscription_id = subscriptions.id').select('COUNT(1)').to_sql})")
       .order(purchase_date: :asc)
   }
 
@@ -68,6 +70,8 @@ class Subscription < ApplicationRecord
   def update_missing_lessons
     unless expired? || lessons_left <= 0
       lessons = student.lessons.where('date >= ?', purchase_date).where('lessons_students.subscription_id IS NULL')
+                  .joins(:style)
+                  .where('styles.party_practice = :party_practice', party_practice: subscription_type.party_practice?)
       lessons = lessons.where('date <= ?', expiry_date) unless no_expiry?
       ids = lessons.order(date: :asc).limit(lessons_left).pluck(:id)
       student.lesson_students.where(lesson_id: ids).update_all(subscription_id: id)

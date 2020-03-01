@@ -16,7 +16,9 @@ document.addEventListener('turbolinks:load', () => {
     source: (query, processSync, processAsync) => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
-        return $.get('/students/autocomplete', { q: query, date: lessonDate }, (response) => {
+        return $.get('/students/autocomplete', {
+          q: query, date: lessonDate, is_party: isPartyPracticeLesson
+        }, (response) => {
           return processAsync(response);
         });
       }, 300)
