@@ -47,9 +47,9 @@ class StudentsController < ApplicationController
   def autocomplete
     result = []
     date = Date.iso8601(params[:date]) rescue nil
-    if params[:q].present? && date.present?
+    if params[:q].present? && date.present? && params[:is_party].present?
       filter_student(params[:q]).each do |student|
-        subscriptions = student.subscriptions_for_date(date)
+        subscriptions = student.subscriptions_for_date(date, params[:is_party] == 'true')
         if subscriptions.present?
           subscriptions.each do |subscription|
             result << {

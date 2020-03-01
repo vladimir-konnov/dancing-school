@@ -50,6 +50,9 @@ class SubscriptionTypesController < ApplicationController
   end
 
   def subscription_type_params
-    params.require(:subscription_type).permit(:name, :number_of_lessons, :cost, :duration_months, :duration_weeks, :active)
+    params.require(:subscription_type).permit(
+      :name, :number_of_lessons, :cost, :duration_months, :duration_weeks, :active,
+      :party_practice
+    )
   end
 end

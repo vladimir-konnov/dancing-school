@@ -4,5 +4,5 @@ class Style < ApplicationRecord
 
   validates_presence_of :name, :duration_hours
   validates_uniqueness_of :name
-  validates_inclusion_of :calculate_payrolls, in: [true, false]
+  validates_inclusion_of :calculate_payrolls, :party_practice, in: [true, false]
 end
