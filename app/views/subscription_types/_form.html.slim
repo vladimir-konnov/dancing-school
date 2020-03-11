@@ -7,6 +7,5 @@
   = f.input :cost, label: 'Стоимость', as: :integer, required: true
   = f.input :duration_months, label: 'Количество месяцев', as: :integer, required: true
   = f.input :duration_weeks, label: 'Количество недель', as: :integer, required: true
-  = f.input :party_practice, label: 'Вечериночный абон/практика', label_html: { class: 'nowrap' }, as: :boolean, required: true
 
   = f.button :submit, "#{button_name} #{t('subscription_types.subscription_type')}", class: 'btn btn-primary'

@@ -9,12 +9,12 @@ class Student < ApplicationRecord
     subscriptions.active.first
   end
 
-  def subscriptions_for_date(date, is_party)
-    subscriptions.active_for_date(date, is_party)
+  def subscriptions_for_date(date)
+    subscriptions.active_for_date(date)
   end
 
-  def subscription_for_date(date, is_party)
-    subscriptions_for_date(date, is_party).first
+  def subscription_for_date(date)
+    subscriptions_for_date(date).first
   end
 
   def name

@@ -5,7 +5,6 @@
   = f.input :name, label: 'Имя', required: true
   /= f.input :duration_hours, label: 'Длительность занятия', required: true
   = f.input :calculate_payrolls, label: 'Считать зарплаты'
-  = f.input :party_practice, label: 'Вечеринка/практика'
   = f.association :teachers, as: :check_boxes, collection: User.ordinary_users,
           label_method: :name, id_method: :id, include_blank: false
 
