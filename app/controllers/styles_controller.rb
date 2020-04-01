@@ -72,7 +72,7 @@ class StylesController < ApplicationController
   end
 
   def style_params
-    p = params.require(:style).permit(:name, :duration_hours, :calculate_payrolls, :party_practice, teacher_ids: [])
+    p = params.require(:style).permit(:name, :duration_hours, :calculate_payrolls, :party_subscription, teacher_ids: [])
     p[:teacher_ids] = p[:teacher_ids].reject(&:blank?)
     p
   end

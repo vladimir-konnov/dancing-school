@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2020_03_01_135652) do
     t.datetime "updated_at", null: false
     t.boolean "calculate_payrolls", default: true, null: false
     t.boolean "visible", default: true, null: false
-    t.boolean "party_practice", default: false, null: false
+    t.boolean "party_subscription", default: false, null: false
     t.index ["name"], name: "index_styles_on_name", unique: true
   end
 
@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 2020_03_01_135652) do
     t.integer "duration_weeks", default: 4, null: false
     t.boolean "active", default: true, null: false
     t.boolean "visible", default: true, null: false
-    t.boolean "party_practice", default: false, null: false
+    t.boolean "party_subscription", default: false, null: false
   end
 
   create_table "subscriptions", force: :cascade do |t|
