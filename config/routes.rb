@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   resources :styles do
     get :visits, on: :member
+    patch :toggle_visible, on: :member
   end
   resources :subscription_types do
     patch :toggle_visible, on: :member

@@ -6,6 +6,8 @@ table.table.styles
   thead
     tr
       th Название
+      - if current_user.administrator_user?
+        th Показывать абонемент
       th Удалить
   tbody
     - @styles.each do |style|
@@ -14,6 +16,10 @@ table.table.styles
           a href=edit_style_path(style) = style.name
           br
           a href=visits_style_path(style) Посещения
+        - if current_user.administrator_user?
+          td
+            = check_box_tag '', style.visible?, style.visible?,
+                    id: "style_#{style.id}", onclick: "javascript:toggleStyleVisible(#{style.id})"
         td
           - if style.lessons.size <= 0
             = link_to "x", style_path(style), method: :delete

@@ -5,4 +5,6 @@ class Style < ApplicationRecord
   validates_presence_of :name, :duration_hours
   validates_uniqueness_of :name
   validates_inclusion_of :calculate_payrolls, :party_subscription, in: [true, false]
+
+  scope :visible, -> { where(visible: true) }
 end
