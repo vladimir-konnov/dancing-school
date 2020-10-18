@@ -11,6 +11,9 @@ h2
   => @students.count
   ' шт)
 = link_to t('buttons.add'), new_student_path
+- if current_user.admin?
+  span style="padding-left: 6px"
+  = link_to t('buttons.export'), export_students_path
 
 .search
   label for="filter" Искать

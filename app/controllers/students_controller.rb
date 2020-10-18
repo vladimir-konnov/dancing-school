@@ -85,6 +85,15 @@ class StudentsController < ApplicationController
     end
   end
 
+  def export
+    csv_string = if current_user.admin?
+      StudentsExportService.new.export_students Student.order(:lastname, :firstname, :middlename)
+    else
+      ''
+    end
+    send_data csv_string, filename: 'students.csv'
+  end
+
   private
 
   def filter_student(query)

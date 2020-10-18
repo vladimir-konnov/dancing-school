@@ -24,6 +24,7 @@ ru:
     create: 'Создать'
     save: 'Сохранить'
     remove: 'Удалить'
+    export: 'Экспорт'
   lessons:
     lesson: 'занятие'
     table:
@@ -47,6 +48,17 @@ ru:
     table:
       columns:
         name: 'Ученики'
+    export:
+      column_names:
+        firstname: 'Имя'
+        lastname: 'Фамилия'
+        middlename: 'Отчество'
+        phone_number: 'Номер телефона'
+        email: 'Email'
+        vk_profile: 'Профиль VK'
+        comment: 'Комментарий'
+        created_at: 'Занесен/создан'
+        birthday: 'День рождения'
   styles:
     style: 'направление'
   subscriptions:

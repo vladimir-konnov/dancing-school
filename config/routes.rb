@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     get :filter, on: :collection
     resources :subscriptions
     get :visits, on: :member
+    get :export, on: :collection
   end
   resources :lessons do
     post :clone, action: :clone_lesson, on: :member
