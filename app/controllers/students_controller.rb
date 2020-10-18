@@ -87,7 +87,7 @@ class StudentsController < ApplicationController
 
   def export
     csv_string = if current_user.admin?
-      StudentsExportService.new.export_students Student.all
+      StudentsExportService.new.export_students Student.order(:lastname, :firstname, :middlename)
     else
       ''
     end

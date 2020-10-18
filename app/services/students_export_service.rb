@@ -2,7 +2,7 @@ require 'csv'
 
 class StudentsExportService
   FIELDS_TO_EXPORT = [
-    :firstname, :lastname, :middlename, :phone_number, :email,
+    :lastname, :firstname, :middlename, :phone_number, :email,
     :vk_profile, :comment, :created_at, :birthday
   ]
 
