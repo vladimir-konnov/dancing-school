@@ -12,11 +12,16 @@ table.table.payroll-table
       th Продано абонементов
   tbody
     - @payroll.each_pair do |teacher, amount|
+      - subscriptions = @subscriptions[teacher]
+      - total_subscriptions_sold = subscriptions&.map(&:price)&.sum || 0
       tr
         td = teacher.name
-        td = to_price amount
         td
-          - subscriptions = @subscriptions[teacher]
+          div.salary = to_price amount
+          div.margin
+            ' Маржа:
+            = to_price amount - total_subscriptions_sold
+        td
           - if subscriptions.present?
             table.table
               tbody
@@ -27,4 +32,4 @@ table.table.payroll-table
                     td = subscription.student.official_name
                     td = to_price subscription.price
             ' Всего
-            = to_price subscriptions.map(&:price).sum
+            = to_price total_subscriptions_sold
