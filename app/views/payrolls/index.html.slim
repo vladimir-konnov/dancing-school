@@ -20,7 +20,7 @@ table.table.payroll-table
           div.salary = to_price amount
           div.margin
             ' Маржа:
-            = to_price amount - total_subscriptions_sold
+            = to_price total_subscriptions_sold - amount
         td
           - if subscriptions.present?
             table.table
