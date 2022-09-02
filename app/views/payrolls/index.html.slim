@@ -19,7 +19,7 @@ table.table.payroll-table
         td
           div.salary = to_price amount
           div.margin
-            ' Маржа:
+            ' Долг в фонд:
             = to_price total_subscriptions_sold - amount
         td
           - if subscriptions.present?
