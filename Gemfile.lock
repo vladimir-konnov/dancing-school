@@ -265,6 +265,8 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     temple (0.8.2)
+    terser (1.1.12)
+      execjs (>= 0.3.0, < 3)
     thor (1.2.1)
     tilt (2.0.11)
     timeout (0.3.0)
@@ -277,8 +279,6 @@ GEM
       railties (>= 3.1)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
-    uglifier (4.2.0)
-      execjs (>= 0.3.0, < 3)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.0)
@@ -322,10 +322,10 @@ DEPENDENCIES
   spring
   spring-watcher-listen
   sprockets-es6
+  terser (~> 1.1)
   turbolinks (~> 5)
   twitter-typeahead-rails
   tzinfo-data
-  uglifier (~> 4.2)
   web-console
 
 RUBY VERSION
