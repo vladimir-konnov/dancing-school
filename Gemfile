@@ -5,14 +5,14 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '3.0.0'
+ruby '3.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.2'
+gem 'rails', '~> 7.0.4'
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 1.2.2'
+gem 'pg', '~> 1.4.4'
 # Use Puma as the app server
-gem 'puma', '~> 4.3'
+gem 'puma', '~> 6.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 6.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -33,7 +33,7 @@ gem 'turbolinks', '~> 5'
 gem 'sprockets-es6'
 
 gem 'slim'
-gem 'bootstrap', '~> 4.4'
+gem 'bootstrap', '~> 5.2'
 gem 'twitter-typeahead-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
