@@ -25,7 +25,7 @@ class SubscriptionTypesController < ApplicationController
   end
 
   def update
-    if @subscription_type.update_attributes(subscription_type_params)
+    if @subscription_type.update(subscription_type_params)
       redirect_to subscription_types_path
     else
       render 'subscription_types/edit'

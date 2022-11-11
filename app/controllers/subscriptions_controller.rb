@@ -32,7 +32,7 @@ class SubscriptionsController < ApplicationController
 
   def update
     #construct_subscription false
-    if @subscription.update_attributes(edit_subscription_params)
+    if @subscription.update(edit_subscription_params)
       @subscription.update_missing_lessons
       redirect_to student_subscriptions_path(@student)
     else

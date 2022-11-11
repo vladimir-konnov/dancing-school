@@ -30,7 +30,7 @@ class StylesController < ApplicationController
   end
 
   def update
-    if @style.update_attributes(style_params)
+    if @style.update(style_params)
       redirect_to styles_path
     else
       render :edit
