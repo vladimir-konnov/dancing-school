@@ -1,7 +1,7 @@
 nav.navbar.fixed-top.navbar-expand-lg.navbar-light.bg-light
   a.navbar-brand
     img src="/favicon.svg" height="32px" width="32px"
-  button.navbar-toggler type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+  button.navbar-toggler type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
     span.navbar-toggler-icon
 
   - if user_signed_in?
@@ -31,7 +31,7 @@ nav.navbar.fixed-top.navbar-expand-lg.navbar-light.bg-light
         li.nav-item
           = link_to t('header.logout'), destroy_user_session_path, class: 'nav-link', method: :delete
         /li.nav-item.dropdown
-          a#navbarDropdown.nav-link.dropdown-toggle href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          a#navbarDropdown.nav-link.dropdown-toggle href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
             | Dropdown
           div.dropdown-menu aria-labelledby="navbarDropdown"
             a.dropdown-item href="#" Action
