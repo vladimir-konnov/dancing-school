@@ -1,4 +1,4 @@
-module Concerns::Authorizable
+module Authorizable
   extend ActiveSupport::Concern
 
   NotAuthorized = Class.new(StandardError)

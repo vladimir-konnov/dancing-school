@@ -4,6 +4,6 @@ class ApplicationController < ActionController::Base
   before_action :masquerade_user!
   before_action :authenticate_user!
 
-  include Concerns::Authorizable
+  include Authorizable
   include ApplicationHelper
 end
