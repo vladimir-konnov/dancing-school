@@ -13,7 +13,11 @@ Rails.application.routes.draw do
 
   #get '/help' => 'root#help', as: :help
 
-  resource :administration
+  resource :administration do
+    collection do
+      patch :hide_user
+    end
+  end
 
   resource :statistics, only: [:show]
 

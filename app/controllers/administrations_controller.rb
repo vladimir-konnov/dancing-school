@@ -11,6 +11,19 @@ class AdministrationsController < ApplicationController
     render json: { result: :ok }
   end
 
+  def hide_user
+    permitted_params = params.permit(:id, :hidden)
+    user_id = permitted_params[:id]
+    if user_id.present?
+      user = User.find user_id
+      if user.present?
+        user.update(hidden: permitted_params[:hidden] == 'true')
+        return render json: { hidden: user.hidden? }
+      end
+    end
+    render json: {}, status: :unprocessable_entity
+  end
+
   private
 
   def init_user

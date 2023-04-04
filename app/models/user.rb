@@ -17,6 +17,7 @@ class User < ApplicationRecord
   validates_inclusion_of :banned, in: [true, false]
 
   scope :ordinary_users, -> { where.not(email: ADMIN_USER_EMAIL) }
+  scope :not_hidden, -> { where(hidden: false) }
 
   def name
     "#{firstname} #{lastname}"

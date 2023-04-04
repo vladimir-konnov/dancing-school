@@ -9,3 +9,20 @@ document.addEventListener('turbolinks:load', () => {
     return false;
   });
 });
+$(function() {
+  $('input[type=checkbox].user-hidden').on('change', (event) => {
+    let checkboxInput = $(event.target)
+    let userId = checkboxInput.data('id');
+    if (checkboxInput && userId) {
+      $.ajax({
+        url: '/administration/hide_user', method: 'PATCH',
+        data: { id: userId, hidden: checkboxInput.prop('checked') }
+      }).then((response) => {
+        if (response.hasOwnProperty('hidden')) {
+          checkboxInput.prop('checked', response.hidden);
+        }
+      });
+    }
+    return false;
+  })
+})

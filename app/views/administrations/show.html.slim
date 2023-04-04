@@ -7,6 +7,7 @@ table.table.users-table
       th Пользователь
       th Роль
       - if current_user.administrator_user?
+        th Спрятан
         th
         th Удалить
   tbody
@@ -20,6 +21,8 @@ table.table.users-table
                     input_html: { class: 'js-role-click', index: f.object.id, name: 'user[role_ids][]' },
                     collection: Role.order(:name), value_method: :id, label_method: :name, label: false
         - if current_user.administrator_user?
+          td
+            = check_box_tag :hidden, user.hidden?, user.hidden?, class: 'user-hidden', 'data-id': user.id
           td
             = link_to "Залогиниться как", masquerade_path(user)
           td
