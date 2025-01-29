@@ -19,7 +19,7 @@ module Authorizable
     current_user&.teacher?
   end
 
-  def render_not_authorized(status:, text:, file: '/public/403.html')
+  def render_not_authorized(status:, text:, file: 'public/403.html')
     respond_to do |format|
       format.json { render json: { message: "#{status} #{text}" }, status: status }
       format.html { render file: file, status: status, layout: false }

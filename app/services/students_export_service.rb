@@ -1,10 +1,10 @@
 require 'csv'
 
 class StudentsExportService
-  FIELDS_TO_EXPORT = [
-    :lastname, :firstname, :middlename, :phone_number, :email,
-    :vk_profile, :comment, :created_at, :birthday
-  ]
+  FIELDS_TO_EXPORT = %i[
+    lastname firstname middlename phone_number email
+    vk_profile comment created_at birthday
+  ].freeze
 
   def export_students(students)
     CSV.generate do |csv|
