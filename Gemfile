@@ -5,14 +5,14 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '3.4.1'
+ruby '3.4.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.1'
+gem 'rails', '~> 8.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.5'
 # Use Puma as the app server
-gem 'puma', '~> 6.4'
+gem 'puma', '~> 6.6'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 6.0'
 # Use Terser as compressor for JavaScript assets
@@ -20,6 +20,7 @@ gem 'terser', '~> 1.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem 'csv'
+gem 'ostruct'
 
 # Use CoffeeScript for .coffee assets and views
 #gem 'coffee-rails', '~> 4.2'
