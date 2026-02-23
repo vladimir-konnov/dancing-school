@@ -60,7 +60,7 @@ class Subscription < ApplicationRecord
   end
 
   def lessons_visited
-    lesson_students.count
+    lesson_students.size
   end
 
   def expired?

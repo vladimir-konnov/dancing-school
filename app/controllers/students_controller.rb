@@ -8,10 +8,10 @@ class StudentsController < ApplicationController
     @lesson_student_debts = LessonStudent.where(subscription_id: nil).joins(:lesson, :student)
                               .includes(:student, lesson: :style)
                               .order('students.lastname, students.firstname, lessons.date DESC')
-    @lesson_student_debts = Hash[@lesson_student_debts.group_by(&:student).map do |student, lesson_students|
-      [student, lesson_students.map(&:lesson)]
-    end]
-    @overdue_subscriptions = Subscription.overdue.preload(:student)
+    @lesson_student_debts = @lesson_student_debts.group_by(&:student).transform_values do |lesson_students|
+      lesson_students.map(&:lesson)
+    end
+    @overdue_subscriptions = Subscription.overdue.preload(:student, :creator, :lesson_students)
   end
 
   def new
