@@ -1,7 +1,7 @@
 h2 = t('devise.common.sign_up')
 
 = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = devise_error_messages!
+  = render 'devise/shared/error_messages', resource: resource
 
   .field
     = f.label :firstname, 'Имя'
